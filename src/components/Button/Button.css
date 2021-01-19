@@ -1,0 +1,30 @@
+.button {
+  background: var(--color-button_background);
+  color: var(--color-button_color);
+  font: normal normal normal 18px/22px Roboto;
+  border: none;
+  border-radius: 31px;
+  padding: 20px 30px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s, box-shadow 0.2s;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  background: var(--color-button_background_hover);
+}
+.button:active {
+  box-shadow: inset 5px 5px 6px -3px #0006;
+  background: var(--color-button_background);
+}
+
+.button_disabled {
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.button_stretch {
+  width: calc(100% - 20px);
+}

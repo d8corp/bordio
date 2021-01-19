@@ -1,0 +1,21 @@
+.login-form {
+  background: var(--color-login-form_background);
+  max-width: 400px;
+  width: 100%;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 22px 5px 43px 5px;
+  margin: 5px;
+}
+
+@media (min-width: 400px) {
+  .login-form {
+    padding: 22px 19px 43px 18px;
+  }
+}
+
+.login-form__title {
+  font: normal normal bold 28px/34px Roboto;
+  margin: 10px;
+  text-align: center;
+}

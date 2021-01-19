@@ -1,0 +1,41 @@
+.field {
+  display: flex;
+  margin: 21px 10px 21px;
+  background: var(--color-field_background);
+  border: none;
+  height: 50px;
+  justify-content: stretch;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 18px;
+  cursor: pointer;
+  position: relative;
+}
+
+.field__input {
+  outline: none;
+  width: 100%;
+  border: none;
+  font: normal normal normal 14px/17px Roboto;
+  color: var(--color-field_color);
+  background: transparent;
+}
+.field__input::placeholder {
+  color: var(--color-field_placeholder);
+}
+
+.field__focus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid var(--color-field_focus);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.field__input:focus + .field__focus {
+  opacity: 1;
+}

@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #102250;
+  min-height: 100vh;
+  font-family: Roboto, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+  --color-login-form_background: #fff;
+
+  --color-button_background: #0094FF;
+  --color-button_background_hover: #2aa3ff;
+  --color-button_color: #fff;
+
+  --color-field_background: #F5F8FA;
+  --color-field_placeholder: #A2A2A2;
+  --color-field_color: #222;
+  --color-field_focus: #0094FF;
+}
