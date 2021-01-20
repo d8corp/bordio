@@ -1,7 +1,7 @@
 import React, {Component, ReactEventHandler} from 'react'
 import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
-import validator, {IValidatorField} from 'src/utils/validator'
+import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
 
 import './LoginForm.css'
 
@@ -20,6 +20,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
         value: undefined,
         error: '',
         required: true,
+        pattern: '^[a-zA-Z]+$',
       },
       {
         name: 'email',
@@ -28,6 +29,8 @@ class LoginForm extends Component<{}, ILoginFormState> {
         value: undefined,
         error: '',
         required: true,
+        pattern: '^(([^<>()[\\]\\\\.,;:\\s@"]+(\\.[^<>()[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
+        patternError: 'Please enter a valid email address',
       },
       {
         name: 'password',
@@ -36,6 +39,8 @@ class LoginForm extends Component<{}, ILoginFormState> {
         value: undefined,
         error: '',
         required: true,
+        pattern: '.{6,}',
+        patternError: 'Password must contain at least 6 symbols',
       },
       {
         name: 'country',
@@ -55,11 +60,12 @@ class LoginForm extends Component<{}, ILoginFormState> {
         required: true,
       },
       {
-        name: 'accept',
+        name: 'policies',
         type: 'check',
         value: false,
         error: '',
         required: true,
+        requiredError: 'You must accept the policies',
       }
     ],
     disabled: true,
@@ -82,7 +88,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
     const fields: IValidatorField[] = this.state.fields
 
     for (const field of fields) {
-      newFields.push({...field, error: validator(field)})
+      newFields.push({...field, error: fieldValidator(field)})
     }
 
     this.setState({fields: newFields})
@@ -109,7 +115,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
     const newFields = fields.map(field => field.name === name ? {
       ...field,
       value,
-      error: validator({...field, value})
+      error: fieldValidator({...field, value})
     } : field)
 
     this.setState({fields: newFields})

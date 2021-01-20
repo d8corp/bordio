@@ -8,11 +8,17 @@ export interface IOnFieldChange {
   (value: string | boolean, name: string): void
 }
 
+export interface IFieldValueOverride {
+  (value: string): string
+}
+
 interface IFieldProps {
   placeholder?: string
   name: string
   type?: 'text' | 'password' | string
   value?: string | boolean
+  values?: string[]
+  overrides?: IFieldValueOverride
   onChange?: IOnFieldChange
   error?: string
 }
@@ -48,6 +54,7 @@ class Field extends PureComponent <IFieldProps> {
         <input
           onInput={this.onInput}
           placeholder={placeholder}
+          
           name={name}
           className='field__input'
           type={type}
