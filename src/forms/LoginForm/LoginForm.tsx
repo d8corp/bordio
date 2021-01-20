@@ -1,6 +1,7 @@
 import React, {Component, ReactEventHandler} from 'react'
 import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
+import Link from 'src/components/Link'
 import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
 
 import './LoginForm.css'
@@ -63,6 +64,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
       {
         name: 'policies',
         type: 'checkbox',
+        placeholder: <>Accept <Link href='#'>terms</Link> and <Link href='#'>conditions</Link></>,
         value: false,
         error: '',
         required: true,

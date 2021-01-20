@@ -123,7 +123,7 @@
 .field__error {
   position: absolute;
   top: 100%;
-  right: 0;
+  max-width: calc(100% - 18px);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -139,28 +139,31 @@
 
 .field__radiobox {
   margin: 29px 10px 24px;
+  position: relative;
 }
-.field__checkbox-label {
+.field__radiobox-label {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-right: 25px;
 }
-.field__checkbox-input {
-  display: none;
+.field__radiobox-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
-.field__checkbox-placeholder {
-
+.field__radiobox-placeholder {
+  font: normal normal normal 14px/17px Roboto;
 }
-.field__checkbox-mark {
+.field__radiobox-mark {
   display: inline-block;
   width: 14px;
   height: 14px;
   border: 1px solid var(--color-field_radio);
   border-radius: 50%;
 }
-.field__checkbox-mark:before {
+.field__radiobox-mark:before {
   content: '';
   display: block;
   width: 8px;
@@ -173,9 +176,48 @@
   transition: all 0.3s;
 }
 
-.field__checkbox-input:checked + .field__checkbox-mark:before {
+.field__radiobox-input:checked + .field__radiobox-mark:before {
   transform: scale(1);
   opacity: 1;
+}
+
+.field__checkbox {
+  margin: 29px 10px 32px;
+  position: relative;
+}
+.field__checkbox-label {
+  display: inline-flex;
+  gap: 8px;
+  cursor: pointer;
+}
+.field__checkbox-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.field__checkbox-mark {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--color-field_radio);
+  border-radius: 3px;
+}
+.field__checkbox-mark-icon {
+  margin: 1px 1px 2px;
+  transition: all 0.3s;
+  opacity: 0;
+  transform: scale(0);
+}
+.field__checkbox-input:checked ~ .field__checkbox-mark > .field__checkbox-mark-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.field__checkbox-placeholder {
+  font: normal normal normal 14px/17px Roboto;
+}
+
+.field__radiobox-input:focus ~ .field__radiobox-mark,
+.field__checkbox-input:focus ~ .field__checkbox-mark {
+  box-shadow: 0 0 0 1px var(--color-field_radio);
 }
 
 @media (min-width: 400px) {

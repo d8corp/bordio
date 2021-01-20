@@ -83,4 +83,20 @@ describe('fieldValidator', () => {
       values: ['test1', 'test2'],
     })).toBe('')
   })
+
+  test('boolean', () => {
+    expect(fieldValidator({
+      name: 'policies',
+      value: false,
+      required: true,
+      requiredError: 'You must accept the policies',
+    })).toBe('You must accept the policies')
+
+    expect(fieldValidator({
+      name: 'policies',
+      value: true,
+      required: true,
+      requiredError: 'You must accept the policies',
+    })).toBe('')
+  })
 })

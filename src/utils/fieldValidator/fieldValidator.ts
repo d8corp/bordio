@@ -1,3 +1,5 @@
+import {ReactNode} from 'react'
+
 export interface IFieldValueOverride {
   (value: string): string
 }
@@ -8,7 +10,7 @@ export interface IValidatorField {
   type?: string
   error?: string
   required?: boolean
-  placeholder?: string
+  placeholder?: string | ReactNode
   values?: string[]
   pattern?: string
   requiredError?: string
@@ -27,8 +29,12 @@ export default function ({
   requiredError = `You must ${values ? 'select' : 'enter'} your ${name}`,
   valuesError = `You must select from ${values?.join(', ')}`,
 }: IValidatorField): string {
-  if (value === undefined || typeof value === 'boolean') {
+  if (value === undefined) {
     return required ? requiredError : ''
+  }
+
+  if (typeof value === 'boolean') {
+    return !required || value ? '' : requiredError
   }
 
   if (pattern && !new RegExp(pattern).test(value as string)) {

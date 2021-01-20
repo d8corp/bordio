@@ -1,4 +1,5 @@
 import React, {PureComponent, ReactNode} from 'react'
+import classes from 'src/utils/classes'
 
 import './Button.css'
 
@@ -18,12 +19,12 @@ class Button extends PureComponent<IButtonProps> {
   get className () {
     const {stretch, disabled, className} = this.props
 
-    return [
+    return classes(
       className,
       'button',
       stretch && 'button_stretch',
       disabled && 'button_disabled',
-    ].filter(e => e).join(' ')
+    )
   }
 
   onClick = () => {

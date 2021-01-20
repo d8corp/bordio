@@ -42,4 +42,6 @@ html, body {
   --color-field_select-item_hover: var(--color-gray-light);
   --color-field_menu-color: var(--color-dark);
   --color-field_radio: var(--color-accent);
+
+  --color-link: var(--color-accent)
 }
