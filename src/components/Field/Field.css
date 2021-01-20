@@ -1,3 +1,25 @@
+@keyframes show-error {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide-error {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
 .field {
   display: flex;
   margin: 21px 10px 21px;
@@ -41,8 +63,6 @@
 }
 
 .field__error {
-  opacity: 1;
-  transition: opacity 0.3s;
   position: absolute;
   top: 100%;
   right: 0;
@@ -53,7 +73,8 @@
   left: 18px;
   color: var(--color-field_error);
   font: normal normal normal 10px/13px Roboto;
+  animation: show-error 0.3s both;
 }
 .field__input:focus ~ .field__error {
-  opacity: 0;
+  animation: hide-error 0.3s both;
 }
