@@ -87,7 +87,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
 
     this.setState({fields: newFields})
 
-    this.updateDisabled()
+    this.updateDisabled(newFields)
   }
 
   updateDisabled (fields: IValidatorField[] = this.state.fields) {
@@ -104,7 +104,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
     this.setState({disabled})
   }
 
-  setValue: IOnFieldChange = (value, name) => {
+  setFieldValue: IOnFieldChange = (value, name) => {
     const {fields} = this.state
     const newFields = fields.map(field => field.name === name ? {
       ...field,
@@ -127,7 +127,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
           <Field
             {...field}
             key={field.name}
-            onChange={this.setValue}
+            onChange={this.setFieldValue}
           />
         ))}
         <Button stretch disabled={disabled}>Sign up</Button>
