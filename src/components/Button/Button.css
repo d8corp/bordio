@@ -12,6 +12,7 @@
   box-sizing: border-box;
 }
 
+.button:focus,
 .button:hover {
   background: var(--color-button_background_hover);
 }
