@@ -78,6 +78,28 @@ class Field extends PureComponent <IFieldProps> {
     )
   }
 
+  get radiobox () {
+    const {values, value, override} = this.props
+    return (
+      <div className='field__radiobox'>
+        {values?.map(val => (
+          <label className='field__checkbox-label' key={val}>
+            <input
+              className='field__checkbox-input'
+              type='radio'
+              checked={value === val}
+              onChange={e => e.target.checked && this.onSelect(val)}
+            />
+            <span className='field__checkbox-mark' />
+            <span className='field__checkbox-placeholder'>
+              {override ? override(val) : val}
+            </span>
+          </label>
+        )) || null}
+      </div>
+    )
+  }
+
   get input () {
     const {placeholder, name, type = 'text'} = this.props
 
@@ -99,7 +121,17 @@ class Field extends PureComponent <IFieldProps> {
   render () {
     const {type} = this.props
 
-    return type === 'select' ? this.select : this.input
+    switch (type) {
+      case 'select': {
+        return this.select
+      }
+      case 'radiobox': {
+        return this.radiobox
+      }
+      default: {
+        return this.input
+      }
+    }
   }
 }
 

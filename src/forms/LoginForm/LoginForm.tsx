@@ -53,15 +53,16 @@ class LoginForm extends Component<{}, ILoginFormState> {
       },
       {
         name: 'gender',
-        type: 'radio',
+        type: 'radiobox',
         value: undefined,
-        values: [],
+        values: ['MALE', 'FEMALE'],
         error: '',
         required: true,
+        override: (val: string) => val === 'MALE' ? 'Male' : 'Female'
       },
       {
         name: 'policies',
-        type: 'check',
+        type: 'checkbox',
         value: false,
         error: '',
         required: true,
