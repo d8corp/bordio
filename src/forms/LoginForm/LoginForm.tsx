@@ -7,6 +7,7 @@ import './LoginForm.css'
 
 interface ILoginFormState {
   fields: IValidatorField[]
+  disabled: boolean
 }
 
 class LoginForm extends Component<{}, ILoginFormState> {
@@ -61,19 +62,17 @@ class LoginForm extends Component<{}, ILoginFormState> {
         required: true,
       }
     ],
+    disabled: true,
   }
 
   onSubmit: ReactEventHandler = e => {
     e.preventDefault()
 
+    this.validation()
     console.log('>', this.state.fields)
   }
 
-  checkAll () {
-
-  }
-
-  validation (): IValidatorField[] {
+  validation () {
     const newFields: IValidatorField[] = []
     const fields: IValidatorField[] = this.state.fields
 
@@ -81,21 +80,40 @@ class LoginForm extends Component<{}, ILoginFormState> {
       newFields.push({...field, error: validator(field)})
     }
 
-    return newFields
+    this.setState({fields: newFields})
+
+    this.updateDisabled()
+  }
+
+  updateDisabled (fields: IValidatorField[] = this.state.fields) {
+    let disabled = false
+
+    for (const field of fields) {
+      if (!field.value || field.error) {
+        disabled = true
+        break
+      }
+    }
+
+    this.setState({disabled})
   }
 
   setValue: IOnFieldChange = (value, name) => {
     const {fields} = this.state
-
-    this.setState({fields: fields.map(field => field.name === name ? {
+    const newFields = fields.map(field => field.name === name ? {
       ...field,
       value,
       error: validator({...field, value})
-    } : field)})
+    } : field)
+
+    this.setState({fields: newFields})
+
+    this.updateDisabled(newFields)
   }
 
   render () {
-    const {fields} = this.state
+    const {fields, disabled} = this.state
+
     return (
       <form className='login-form' onSubmit={this.onSubmit}>
         <h1 className='login-form__title'>Create a new account</h1>
@@ -106,7 +124,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
             onChange={this.setValue}
           />
         ))}
-        <Button stretch>Sign up</Button>
+        <Button stretch disabled={disabled}>Sign up</Button>
       </form>
     )
   }
