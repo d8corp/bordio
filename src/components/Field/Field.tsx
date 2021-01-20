@@ -1,4 +1,4 @@
-import React, {BaseSyntheticEvent, Component, ReactNode} from 'react'
+import React, {BaseSyntheticEvent, PureComponent, ReactNode} from 'react'
 
 import './Field.css'
 
@@ -17,7 +17,7 @@ interface IFieldProps {
   error?: string
 }
 
-class Field extends Component <IFieldProps> {
+class Field extends PureComponent <IFieldProps> {
   onInput = (e: TInputEvent) => {
     const {onChange, name} = this.props
 
