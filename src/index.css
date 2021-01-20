@@ -4,6 +4,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: #102250;
+  color: #222;
   min-height: 100vh;
   font-family: Roboto, sans-serif;
 }
@@ -27,4 +28,7 @@ html, body {
   --color-field_color: #222;
   --color-field_focus: #0094FF;
   --color-field_error: #E82828;
+  --color-field_select-background: #fff;
+  --color-field_select-item_hover: #F5F8FA;
+  --color-field_menu-color: var(--color-field_color);
 }

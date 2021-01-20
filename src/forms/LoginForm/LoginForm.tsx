@@ -47,7 +47,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
         type: 'select',
         placeholder: 'Select country',
         value: undefined,
-        values: [],
+        values: ['Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya'],
         error: '',
         required: true,
       },

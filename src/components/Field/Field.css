@@ -61,6 +61,55 @@
 .field__input:focus + .field__focus {
   opacity: 1;
 }
+.field__input_select {
+  opacity: 0;
+}
+
+.field__select {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font: normal normal normal 14px/17px Roboto;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  color: var(--color-field_color);
+}
+.field__select_placeholder {
+  color: var(--color-field_placeholder);
+}
+
+.field__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: var(--color-field_select-background);
+  box-shadow: 0 3px 8px #00000026;
+  color: var(--color-field_color);
+  border-radius: 8px;
+  margin: 6px 0 0;
+  padding: 6px 0;
+  list-style: none;
+  display: none;
+  max-height: 277px;
+  overflow: auto;
+}
+.field__input:focus ~ .field__menu {
+  display: block;
+}
+
+.field__menu-item {
+  padding: 10px 19px 9px;
+  font: normal normal normal 14px/32px Roboto;
+}
+
+.field__menu-item:hover {
+  background: var(--color-field_select-item_hover);
+}
 
 .field__error {
   position: absolute;
@@ -77,4 +126,13 @@
 }
 .field__input:focus ~ .field__error {
   animation: hide-error 0.3s both;
+}
+
+@media (max-width: 400px) {
+  .field__select {
+    pointer-events: none;
+  }
+  .field__menu {
+    display: none !important;
+  }
 }

@@ -1,4 +1,6 @@
-import {type} from "os";
+export interface IFieldValueOverride {
+  (value: string): string
+}
 
 export interface IValidatorField {
   name: string
@@ -12,6 +14,7 @@ export interface IValidatorField {
   requiredError?: string
   patternError?: string
   valuesError?: string
+  override?: IFieldValueOverride
 }
 
 export default function ({
