@@ -65,11 +65,16 @@ class LoginForm extends Component<{}, ILoginFormState> {
     disabled: true,
   }
 
+  isValid = false
+
   onSubmit: ReactEventHandler = e => {
     e.preventDefault()
 
     this.validation()
-    console.log('>', this.state.fields)
+
+    if (this.isValid) {
+      console.log('>', this.state.fields)
+    }
   }
 
   validation () {
@@ -95,6 +100,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
       }
     }
 
+    this.isValid = !disabled
     this.setState({disabled})
   }
 
