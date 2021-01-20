@@ -4,28 +4,25 @@ import './Field.css'
 
 export type TInputEvent = BaseSyntheticEvent<any, any, HTMLInputElement>
 
-interface IOnFieldChange {
-  (value: string): void
-}
-interface IErrorHandler {
-  (value: string | undefined): string
+export interface IOnFieldChange {
+  (value: string | boolean, name: string): void
 }
 
 interface IFieldProps {
   placeholder?: string
-  name?: string
-  type?: 'text' | 'password'
-  value?: string
+  name: string
+  type?: 'text' | 'password' | string
+  value?: string | boolean
   onChange?: IOnFieldChange
-  error?: IErrorHandler | string
+  error?: string
 }
 
 class Field extends Component <IFieldProps> {
   onInput = (e: TInputEvent) => {
-    const {onChange} = this.props
+    const {onChange, name} = this.props
 
     if (onChange) {
-      onChange(e.target.value)
+      onChange(e.target.value, name)
     }
   }
 
@@ -34,10 +31,6 @@ class Field extends Component <IFieldProps> {
 
     if (!error) {
       return null
-    }
-
-    if (typeof error === 'function') {
-      error = error(this.props.value)
     }
 
     return (

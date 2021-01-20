@@ -26,4 +26,5 @@ html, body {
   --color-field_placeholder: #A2A2A2;
   --color-field_color: #222;
   --color-field_focus: #0094FF;
+  --color-field_error: #E82828;
 }

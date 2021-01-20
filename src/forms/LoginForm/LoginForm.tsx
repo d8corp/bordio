@@ -1,58 +1,113 @@
-import React, {Component} from 'react'
-import Form, {TFormData} from 'src/components/Form'
-import Field from 'src/components/Field'
+import React, {Component, ReactEventHandler} from 'react'
+import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
+import validator, {IValidatorField} from 'src/utils/validator'
 
 import './LoginForm.css'
 
-class LoginForm extends Component {
+interface ILoginFormState {
+  fields: IValidatorField[]
+}
+
+class LoginForm extends Component<{}, ILoginFormState> {
   state = {
-    fields: {
-      name: undefined,
-      email: undefined,
-      password: undefined,
-      country: undefined,
-      gender: undefined,
-      accept: undefined,
-    } as Record<string, string | undefined>,
+    fields: [
+      {
+        name: 'name',
+        type: 'text',
+        placeholder: 'Enter your name',
+        value: undefined,
+        error: '',
+        required: true,
+      },
+      {
+        name: 'email',
+        type: 'email',
+        placeholder: 'Email',
+        value: undefined,
+        error: '',
+        required: true,
+      },
+      {
+        name: 'password',
+        type: 'password',
+        placeholder: 'Password',
+        value: undefined,
+        error: '',
+        required: true,
+      },
+      {
+        name: 'country',
+        type: 'select',
+        placeholder: 'Select country',
+        value: undefined,
+        values: [],
+        error: '',
+        required: true,
+      },
+      {
+        name: 'gender',
+        type: 'radio',
+        value: undefined,
+        values: [],
+        error: '',
+        required: true,
+      },
+      {
+        name: 'accept',
+        type: 'check',
+        value: false,
+        error: '',
+        required: true,
+      }
+    ],
   }
 
-  onSubmit = (data: TFormData) => {
-    this.onValid()
-    console.log('>', data)
+  onSubmit: ReactEventHandler = e => {
+    e.preventDefault()
+
+    console.log('>', this.state.fields)
   }
 
-  onValid () {
-    const newFields: Record<string, string> = {}
+  checkAll () {
+
+  }
+
+  validation (): IValidatorField[] {
+    const newFields: IValidatorField[] = []
+    const fields: IValidatorField[] = this.state.fields
+
+    for (const field of fields) {
+      newFields.push({...field, error: validator(field)})
+    }
+
+    return newFields
+  }
+
+  setValue: IOnFieldChange = (value, name) => {
     const {fields} = this.state
 
-    for (const key in fields) {
-      newFields[key] = fields[key] === undefined ? '' : fields[key] + ''
-    }
+    this.setState({fields: fields.map(field => field.name === name ? {
+      ...field,
+      value,
+      error: validator({...field, value})
+    } : field)})
   }
 
   render () {
+    const {fields} = this.state
     return (
-      <Form className='login-form' onSubmit={this.onSubmit}>
+      <form className='login-form' onSubmit={this.onSubmit}>
         <h1 className='login-form__title'>Create a new account</h1>
-        <Field
-          placeholder='Enter your name'
-          name='name'
-          onChange={name => this.setState({name})}
-        />
-        <Field
-          placeholder='Email'
-          name='email'
-          onChange={email => this.setState({email})}
-        />
-        <Field
-          placeholder='Password'
-          name='password'
-          type='password'
-          onChange={password => this.setState({password})}
-        />
+        {fields.map(field => (
+          <Field
+            {...field}
+            key={field.name}
+            onChange={this.setValue}
+          />
+        ))}
         <Button stretch>Sign up</Button>
-      </Form>
+      </form>
     )
   }
 }
