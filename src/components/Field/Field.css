@@ -81,6 +81,13 @@
   color: var(--color-field_placeholder);
 }
 
+.field__select-arrow {
+  transition: transform 0.3s;
+}
+.field__input:focus ~ .field__select-arrow {
+  transform: rotateZ(180deg);
+}
+
 .field__menu {
   position: absolute;
   top: 100%;
@@ -97,9 +104,11 @@
   display: none;
   max-height: 277px;
   overflow: auto;
+  transition: all 0.3s;
 }
 .field__input:focus ~ .field__menu {
   display: block;
+  animation: show-error 0.3s;
 }
 
 .field__menu-item {
@@ -126,6 +135,12 @@
 }
 .field__input:focus ~ .field__error {
   animation: hide-error 0.3s both;
+}
+
+@media (min-width: 400px) {
+  .field__input_select > option {
+    display: none;
+  }
 }
 
 @media (max-width: 400px) {

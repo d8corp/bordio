@@ -72,7 +72,7 @@ class Field extends PureComponent <IFieldProps> {
             <li className='field__menu-item' value={val} key={val} onMouseDown={() => this.onSelect(val)}>{override ? override(val) : val}</li>
           )) || null}
         </ul>
-        <img src={sliderArrow} alt='arrow' />
+        <img className='field__select-arrow' src={sliderArrow} alt='arrow' />
         {this.error}
       </label>
     )
