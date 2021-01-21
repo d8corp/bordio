@@ -74,6 +74,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
         values: ['Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya'],
         error: '',
         required: true,
+        requiredError: 'You must select your country',
       },
       {
         name: 'gender',

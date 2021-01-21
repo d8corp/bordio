@@ -14,21 +14,22 @@
 }
 
 .registration-form__icon_password {
-  margin: 0 4px 5px 0;
+  margin: 0 3px 5px 1px;
 }
 .registration-form__icon_email {
   margin-top: 1px;
 }
 
+.registration-form__title {
+  font: normal normal bold 28px/34px Roboto;
+  padding-bottom: 15px;
+  margin: 11px 9px 12px 11px;
+  text-align: center;
+}
+
+
 @media (min-width: 400px) {
   .registration-form {
     padding: 22px 18px 43px 19px;
   }
-}
-
-.registration-form__title {
-  font: normal normal bold 28px/34px Roboto;
-  padding-bottom: 15px;
-  margin: 11px 10px 12px;
-  text-align: center;
 }

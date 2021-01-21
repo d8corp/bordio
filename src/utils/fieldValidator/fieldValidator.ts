@@ -26,7 +26,7 @@ export default function ({
   required,
   pattern,
   patternError = `Please enter a valid ${name}`,
-  requiredError = `You must ${values ? 'select' : 'enter'} your ${name}`,
+  requiredError = `You must ${values ? 'select' : 'enter'} the ${name}`,
   valuesError = `You must select from ${values?.join(', ')}`,
 }: IValidatorField): string {
   if (value === undefined) {
