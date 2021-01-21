@@ -1,29 +1,40 @@
 import React, {Component, ReactEventHandler, ReactNode} from 'react'
 
+// local utils
 import classes from 'src/utils/classes'
 import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
 import registration from 'src/api/registration'
+
+// components
 import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
 import Link from 'src/components/Link'
 
+// file imports
 import emailImage from './email.svg'
 import passwordImage from './password.svg'
 
-import './LoginForm.css'
+// style imports
+import './RegistrationForm.css'
 
-interface ILoginFormState {
+// interfaces
+interface IRegistrationFormState {
   fields: IValidatorField[]
   disabled: boolean
   loading: boolean
 }
 
+// variables
 const beforeIcons: Record<string, ReactNode> = {
   password: <img src={passwordImage} alt='password' />,
   email: <img src={emailImage} alt='email' />,
 }
 
-class LoginForm extends Component<{}, ILoginFormState> {
+// classes
+/**
+ * @description Simple form to sign-up
+ * */
+class RegistrationForm extends Component<{}, IRegistrationFormState> {
   state = {
     fields: [
       {
@@ -172,8 +183,8 @@ class LoginForm extends Component<{}, ILoginFormState> {
     const {fields, disabled, loading} = this.state
 
     return (
-      <form className={classes('login-form', loading && 'login-form_loading')} onSubmit={this.onSubmit}>
-        <h1 className='login-form__title'>Create a new account</h1>
+      <form className={classes('registration-form', loading && 'registration-form_loading')} onSubmit={this.onSubmit}>
+        <h1 className='registration-form__title'>Create a new account</h1>
         {fields.map(field => (
           <Field
             {...field}
@@ -188,4 +199,4 @@ class LoginForm extends Component<{}, ILoginFormState> {
   }
 }
 
-export default LoginForm
+export default RegistrationForm

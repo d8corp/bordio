@@ -3,11 +3,11 @@ import {storiesOf} from '@storybook/react'
 
 import 'src/index.css'
 
-import LoginForm from '.'
+import RegistrationForm from '.'
 
 storiesOf('forms', module)
-  .add('LoginForm', () => {
+  .add('RegistrationForm', () => {
     return (
-      <LoginForm />
+      <RegistrationForm />
     )
   })

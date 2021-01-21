@@ -27,8 +27,8 @@ html, body {
   --color-error: #e82828;
 
   /* elements */
-  --color-login-form_background: var(--color-light);
-  --color-login-form_color: var(--color-dark);
+  --color-registration-form_background: var(--color-light);
+  --color-registration-form_color: var(--color-dark);
 
   --color-button_background: var(--color-accent);
   --color-button_background_hover: var(--color-accent-light);

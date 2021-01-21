@@ -1,11 +1,16 @@
 import React from 'react'
 
-import LoginForm from 'src/forms/LoginForm'
+// components
+import RegistrationForm from 'src/forms/RegistrationForm'
 
-function App () {
+// functions
+/**
+ * @description Main application component
+ * */
+export function App () {
   return (
     <>
-      <LoginForm />
+      <RegistrationForm />
     </>
   )
 }

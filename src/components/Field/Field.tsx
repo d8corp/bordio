@@ -8,7 +8,7 @@ import classes from 'src/utils/classes'
 import selectorArrow from './selectorArrow.svg'
 import checkboxArrow from './checkboxArrow.svg'
 
-// css imports
+// style imports
 import './Field.css'
 
 // types

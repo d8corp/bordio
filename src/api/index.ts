@@ -1,6 +1,9 @@
 import {ApolloClient, InMemoryCache} from '@apollo/client'
 
-export default new ApolloClient({
+// variables
+export const api = new ApolloClient({
   uri: 'https://homework.nextbil.com/graphql',
   cache: new InMemoryCache()
 })
+
+export default api
