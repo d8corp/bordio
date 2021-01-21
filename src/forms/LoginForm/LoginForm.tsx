@@ -1,17 +1,28 @@
 import React, {Component, ReactEventHandler, ReactNode} from 'react'
+import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { gql } from '@apollo/client'
+
+import classes from 'src/utils/classes'
+import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
 import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
 import Link from 'src/components/Link'
-import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
+import Loading from 'src/components/Loading'
 
 import emailImage from './email.svg'
 import passwordImage from './password.svg'
 
 import './LoginForm.css'
 
+const client = new ApolloClient({
+  uri: 'https://homework.nextbil.com/graphql',
+  cache: new InMemoryCache()
+})
+
 interface ILoginFormState {
   fields: IValidatorField[]
   disabled: boolean
+  loading: boolean
 }
 
 const beforeIcons: Record<string, ReactNode> = {
@@ -80,6 +91,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
       }
     ],
     disabled: true,
+    loading: false,
   }
 
   isValid = false
@@ -90,7 +102,38 @@ class LoginForm extends Component<{}, ILoginFormState> {
     this.validation()
 
     if (this.isValid) {
-      console.log('>', this.state.fields)
+      this.setState({loading: true})
+
+      const data: Record<string, any> = {}
+
+      for (const field of this.state.fields) {
+        data[field.name] = field.value
+      }
+
+      client
+        .mutate({
+          mutation: gql`
+            mutation {
+              signup(input: {
+                name: "${data.name}",
+                email: "${data.email}",
+                password: "${data.password}",
+                country: "${data.country}",
+                gender: ${data.gender}
+              }) {
+                id
+              }
+            }
+          `
+        })
+        .then(result => {
+          alert(`Success registration, your id ${result.data.signup.id}`)
+        }, error => {
+          alert(error.message)
+        })
+        .finally(() => {
+          this.setState({loading: false})
+        })
     }
   }
 
@@ -135,10 +178,10 @@ class LoginForm extends Component<{}, ILoginFormState> {
   }
 
   render () {
-    const {fields, disabled} = this.state
+    const {fields, disabled, loading} = this.state
 
     return (
-      <form className='login-form' onSubmit={this.onSubmit}>
+      <form className={classes('login-form', loading && 'login-form_loading')} onSubmit={this.onSubmit}>
         <h1 className='login-form__title'>Create a new account</h1>
         {fields.map(field => (
           <Field
@@ -148,7 +191,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
             onChange={this.setFieldValue}
           />
         ))}
-        <Button stretch disabled={disabled}>Sign up</Button>
+        <Button stretch disabled={disabled}>{loading ? <Loading invert /> : 'Sign up'}</Button>
       </form>
     )
   }

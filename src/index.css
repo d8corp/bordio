@@ -45,4 +45,7 @@ html, body {
 
   --color-link: var(--color-accent);
   --color-link_hover: var(--color-accent-light);
+
+  --color-loading: var(--color-accent-light);
+  --color-loading_invert: var(--color-light);
 }

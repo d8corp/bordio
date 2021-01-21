@@ -1,0 +1,34 @@
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+.loading {
+  animation: loading-rotate 2s linear infinite;
+  width: 1em;
+  height: 1em;
+}
+.loading > .loading__path {
+  stroke: var(--color-loading);
+  stroke-linecap: round;
+  animation: loading-dash 1.5s ease-in-out infinite;
+}
+.loading_invert > .loading__path {
+  stroke: var(--color-loading_invert);
+}
