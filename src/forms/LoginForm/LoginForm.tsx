@@ -155,7 +155,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
     this.setState({disabled})
   }
 
-  setFieldValue: IOnFieldChange = (value, name) => {
+  setFieldValue: IOnFieldChange = (value: boolean | string, name: string) => {
     const {fields} = this.state
     const newFields = fields.map(field => field.name === name ? {
       ...field,

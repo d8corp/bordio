@@ -1,24 +1,32 @@
 import React, {BaseSyntheticEvent, PureComponent, ReactEventHandler, ReactNode} from 'react'
+
+// local utils
 import {IValidatorField} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
 
+// file imports
 import selectorArrow from './selectorArrow.svg'
 import checkboxArrow from './checkboxArrow.svg'
 
+// css imports
 import './Field.css'
 
+// types
 export type TInputEvent = BaseSyntheticEvent<any, any, HTMLInputElement>
 
+// interfaces
 export interface IOnFieldChange {
-  (value: string | boolean, name: string): void
+  (value: boolean, name: 'checkbox'): void
+  (value: string, name: string): void
 }
 
-interface IFieldProps extends IValidatorField {
+export interface IFieldProps extends IValidatorField {
   onChange?: IOnFieldChange
   before?: ReactNode
 }
 
-class Field extends PureComponent <IFieldProps> {
+// classes
+export class Field extends PureComponent <IFieldProps> {
   static defaultProps = {
     type: 'text',
   }
@@ -30,7 +38,7 @@ class Field extends PureComponent <IFieldProps> {
   onSelect (value: string | boolean) {
     const {onChange, name} = this.props
     if (onChange) {
-      onChange(value, name)
+      onChange(value as string, name)
     }
   }
 

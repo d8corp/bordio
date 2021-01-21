@@ -1,9 +1,13 @@
 import React, {PureComponent, ReactNode} from 'react'
+
+// local utils
 import classes from 'src/utils/classes'
 import Loading from 'src/components/Loading'
 
+// css imports
 import './Button.css'
 
+// interfaces
 export interface IOnButtonClick {
   (): void
 }
@@ -17,7 +21,8 @@ export interface IButtonProps {
   onClick?: IOnButtonClick
 }
 
-class Button extends PureComponent<IButtonProps> {
+// classes
+export class Button extends PureComponent<IButtonProps> {
   get className () {
     const {stretch, disabled, className} = this.props
 
