@@ -98,7 +98,12 @@ storiesOf('components/Field/select', module)
   })
   .add('placeholder', () => {
     return (
-      <Field name='select' type='select' placeholder='Select country' onChange={action('onChange')}/>
+      <Field
+        name='select'
+        type='select'
+        placeholder='Select country'
+        onChange={action('onChange')}
+      />
     )
   })
   .add('value', () => {
@@ -147,6 +152,17 @@ storiesOf('components/Field/select', module)
         values={['test1', 'test2']}
         override={e => e.toUpperCase()}
         value='test1'
+        onChange={action('onChange')}
+      />
+    )
+  })
+  .add('long select', () => {
+    return (
+      <Field
+        name='select'
+        type='select'
+        placeholder='Select country'
+        values={['Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya']}
         onChange={action('onChange')}
       />
     )

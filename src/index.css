@@ -28,6 +28,7 @@ html, body {
 
   /* elements */
   --color-login-form_background: var(--color-light);
+  --color-login-form_color: var(--color-dark);
 
   --color-button_background: var(--color-accent);
   --color-button_background_hover: var(--color-accent-light);
