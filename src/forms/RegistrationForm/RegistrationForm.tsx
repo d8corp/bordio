@@ -26,8 +26,8 @@ interface IRegistrationFormState {
 
 // variables
 const beforeIcons: Record<string, ReactNode> = {
-  password: <img src={passwordImage} alt='password' />,
-  email: <img src={emailImage} alt='email' />,
+  password: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
+  email: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
 }
 
 // classes

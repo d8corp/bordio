@@ -42,6 +42,7 @@
   font: normal normal normal 14px/17px Roboto;
   color: var(--color-field_color);
   background: transparent;
+  margin-left: -2px;
 }
 .field__input::placeholder {
   color: var(--color-field_placeholder);
@@ -70,7 +71,7 @@
 
 .field__select {
   font: normal normal normal 14px/17px Roboto;
-  padding: 0 18px;
+  padding: 0;
   display: flex;
   align-items: center;
   color: var(--color-field_color);
@@ -111,7 +112,7 @@
 }
 
 .field__menu-item {
-  padding: 10px 19px 9px;
+  padding: 2px 19px 2px;
   font: normal normal normal 14px/32px Roboto;
 }
 
@@ -143,7 +144,7 @@
 }
 
 .field__radiobox {
-  margin: 29px 10px 24px;
+  margin: 29px 10px 23px;
   position: relative;
 }
 .field__radiobox-label {
@@ -163,10 +164,11 @@
 }
 .field__radiobox-mark {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border: 1px solid var(--color-field_radio);
   border-radius: 50%;
+  margin-bottom: 1px;
 }
 .field__radiobox-mark:before {
   content: '';
@@ -174,7 +176,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  margin: 3px;
+  margin: 2px;
   background: var(--color-field_radio);
   transform: scale(0);
   opacity: 0;
@@ -187,13 +189,15 @@
 }
 
 .field__checkbox {
-  margin: 29px 10px 32px;
+  margin: 23px 10px 26px;
   position: relative;
+  display: flex;
 }
 .field__checkbox-label {
   display: inline-flex;
   gap: 8px;
   cursor: pointer;
+  align-items: center;
 }
 .field__checkbox-input {
   position: absolute;
@@ -201,13 +205,14 @@
   pointer-events: none;
 }
 .field__checkbox-mark {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border: 1px solid var(--color-field_radio);
   border-radius: 3px;
+  margin-top: -1px;
 }
 .field__checkbox-mark-icon {
-  margin: 1px 1px 2px;
+  margin: 0 0 4px;
   transition: all 0.3s;
   opacity: 0;
   transform: scale(0);

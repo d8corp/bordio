@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
 
 html, body {
   margin: 0;
@@ -31,6 +31,7 @@ html, body {
   --color-registration-form_color: var(--color-dark);
 
   --color-button_background: var(--color-accent);
+  --color-button_background-disabled: var(--color-gray);
   --color-button_background_hover: var(--color-accent-light);
   --color-button_color: var(--color-light);
 

@@ -13,14 +13,19 @@
   filter: grayscale(1);
 }
 
+.registration-form__icon_password {
+  margin: 0 4px 5px 0;
+}
+
 @media (min-width: 400px) {
   .registration-form {
-    padding: 22px 19px 43px 18px;
+    padding: 22px 18px 43px 19px;
   }
 }
 
 .registration-form__title {
   font: normal normal bold 28px/34px Roboto;
-  margin: 10px;
+  padding-bottom: 15px;
+  margin: 11px 10px 12px;
   text-align: center;
 }

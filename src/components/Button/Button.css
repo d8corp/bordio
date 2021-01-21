@@ -7,7 +7,7 @@
   padding: 20px 30px;
   cursor: pointer;
   outline: none;
-  transition: background-color 0.3s, box-shadow 0.2s;
+  transition: all 0.2s;
   margin: 10px;
   box-sizing: border-box;
 }
@@ -21,8 +21,10 @@
   background: var(--color-button_background);
 }
 
-.button_disabled {
-  filter: grayscale(1);
+.button_disabled,
+.button_disabled:focus,
+.button_disabled:hover {
+  background: var(--color-button_background-disabled);
   cursor: not-allowed;
 }
 
