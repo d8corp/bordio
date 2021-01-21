@@ -23,7 +23,7 @@ class Field extends PureComponent <IFieldProps> {
     type: 'text',
   }
 
-  onInput: ReactEventHandler = (e: TInputEvent) => {
+  onChange: ReactEventHandler = (e: TInputEvent) => {
     const {onChange, name} = this.props
 
     if (onChange) {
@@ -66,7 +66,7 @@ class Field extends PureComponent <IFieldProps> {
         <select
           value={value as string}
           className='field__input field__input_select'
-          onChange={this.onInput}
+          onChange={this.onChange}
           name={name}>
           <option disabled>{placeholder}</option>
           {values?.map(val => (
@@ -112,7 +112,8 @@ class Field extends PureComponent <IFieldProps> {
   }
 
   get checkbox () {
-    const {value, placeholder} = this.props
+    const {value = false, placeholder} = this.props
+
     return (
       <div className='field__checkbox'>
         <label className='field__checkbox-label'>
@@ -133,13 +134,14 @@ class Field extends PureComponent <IFieldProps> {
   }
 
   get input () {
-    const {placeholder, name, type = 'text', before = null} = this.props
+    const {placeholder, name, type = 'text', before = null, value = ''} = this.props
 
-    return type === 'select' ? this.select : (
+    return (
       <label className='field'>
         {before}
         <input
-          onInput={this.onInput}
+          onChange={this.onChange}
+          value={value as string}
           placeholder={placeholder as string}
           name={name}
           className='field__input'

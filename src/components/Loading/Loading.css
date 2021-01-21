@@ -21,8 +21,8 @@
 
 .loading {
   animation: loading-rotate 2s linear infinite;
-  width: 1em;
-  height: 1em;
+  width: calc(1em - 1px);
+  height: calc(1em - 1px);
 }
 .loading > .loading__path {
   stroke: var(--color-loading);

@@ -128,6 +128,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
         })
         .then(result => {
           alert(`Success registration, your id ${result.data.signup.id}`)
+          this.clear()
         }, error => {
           alert(error.message)
         })
@@ -135,6 +136,16 @@ class LoginForm extends Component<{}, ILoginFormState> {
           this.setState({loading: false})
         })
     }
+  }
+
+  clear () {
+    const newFields = []
+
+    for (const field of this.state.fields) {
+      newFields.push({...field, value: undefined, error: ''})
+    }
+
+    this.setState({fields: newFields})
   }
 
   validation () {
