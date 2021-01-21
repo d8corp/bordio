@@ -16,7 +16,7 @@ describe('fieldValidator', () => {
     expect(fieldValidator({
       name: 'name',
       required: true
-    })).toBe('You must enter your name')
+    })).toBe('You must enter the name')
 
     expect(fieldValidator({
       name: 'name',
