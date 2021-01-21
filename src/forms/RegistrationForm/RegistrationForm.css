@@ -16,6 +16,9 @@
 .registration-form__icon_password {
   margin: 0 4px 5px 0;
 }
+.registration-form__icon_email {
+  margin-top: 1px;
+}
 
 @media (min-width: 400px) {
   .registration-form {

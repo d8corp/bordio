@@ -43,6 +43,7 @@
   color: var(--color-field_color);
   background: transparent;
   margin-left: -2px;
+  text-rendering: geometricPrecision;
 }
 .field__input::placeholder {
   color: var(--color-field_placeholder);
@@ -223,11 +224,12 @@
 }
 .field__checkbox-placeholder {
   font: normal normal normal 14px/17px Roboto;
+  margin: -1px 0 1px;
 }
 
 .field__radiobox-input:focus ~ .field__radiobox-mark,
 .field__checkbox-input:focus ~ .field__checkbox-mark {
-  box-shadow: 0 0 0 1px var(--color-field_radio);
+  box-shadow: 0 0 5px 0 var(--color-field_radio);
 }
 
 @media (min-width: 400px) {
