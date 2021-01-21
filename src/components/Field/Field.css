@@ -119,6 +119,7 @@
   font: normal normal normal 14px/32px Roboto;
 }
 
+.field__menu-item_select,
 .field__menu-item:hover {
   background: var(--color-field_select-item_hover);
 }

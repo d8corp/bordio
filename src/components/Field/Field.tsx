@@ -1,4 +1,4 @@
-import React, {BaseSyntheticEvent, PureComponent, ReactEventHandler, ReactNode} from 'react'
+import React, {BaseSyntheticEvent, PureComponent, ReactEventHandler, ReactNode, createRef, RefObject} from 'react'
 
 // local utils
 import {IValidatorField} from 'src/utils/fieldValidator'
@@ -37,10 +37,37 @@ export class Field extends PureComponent <IFieldProps> {
   onChange: ReactEventHandler = (e: TInputEvent) => {
     this.onSelect(e.target.value)
   }
-  onSelect (newValue: string | boolean) {
+  onSelect (newValue?: string | boolean) {
     const {onChange, name, value} = this.props
     if (onChange && newValue !== value) {
       onChange(newValue as string, name)
+    }
+  }
+  onSelectKeyDown (e: KeyboardEvent, ul: RefObject<HTMLUListElement>) {
+    const isUp = e.key === 'ArrowUp'
+    const isDown = e.key === 'ArrowDown'
+
+    if (isDown || isUp) {
+      const {value, values} = this.props
+
+      if (values) {
+        const target: HTMLSelectElement = e.target as HTMLSelectElement
+        const id = values.indexOf(value as string)
+        const max = target.length - 2
+        const newId = isDown ? (
+          id >= max ? 0 : id + 1
+        ) : (
+          id <= 0 ? max : id - 1
+        )
+
+        this.onSelect((target[newId + 1] as HTMLOptionElement).value)
+
+        const currentElement = ul.current?.children[newId]
+
+        if (currentElement) {
+          currentElement.scrollIntoView({behavior: 'smooth', block: "center"})
+        }
+      }
     }
   }
 
@@ -61,10 +88,12 @@ export class Field extends PureComponent <IFieldProps> {
   // elements by type
   get select (): ReactNode {
     const {name, placeholder, values, override, value} = this.props
+    const ul = createRef<HTMLUListElement>()
 
     return (
       <label className='field'>
         <select
+          onKeyDown={e => this.onSelectKeyDown(e as unknown as KeyboardEvent, ul)}
           value={value as string}
           className='field__input field__input_select'
           onChange={this.onChange}
@@ -78,9 +107,15 @@ export class Field extends PureComponent <IFieldProps> {
         <span className={classes('field__select', !value && 'field__select_placeholder')}>
           {(override ? override(value as string) : value) || placeholder}
         </span>
-        <ul className='field__menu'>
+        <ul ref={ul} className='field__menu'>
           {values?.map(val => (
-            <li className='field__menu-item' value={val} key={val} onMouseDown={() => this.onSelect(val)}>{override ? override(val) : val}</li>
+            <li
+              className={classes('field__menu-item', val === value && 'field__menu-item_select')}
+              value={val}
+              key={val}
+              onMouseDown={() => this.onSelect(val)}>
+              {override ? override(val) : val}
+            </li>
           )) || <li className='field__menu-item_empty'>Empty</li>}
         </ul>
         <img className='field__select-arrow' src={selectorArrow} alt='arrow' />
