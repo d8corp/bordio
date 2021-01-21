@@ -29,12 +29,8 @@ export default function ({
   requiredError = `You must ${values ? 'select' : 'enter'} the ${name}`,
   valuesError = `You must select from ${values?.join(', ')}`,
 }: IValidatorField): string {
-  if (value === undefined) {
+  if (!value) {
     return required ? requiredError : ''
-  }
-
-  if (typeof value === 'boolean') {
-    return !required || value ? '' : requiredError
   }
 
   if (pattern && !new RegExp(pattern).test(value as string)) {
