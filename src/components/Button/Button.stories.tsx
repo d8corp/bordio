@@ -6,22 +6,34 @@ import 'src/index.css'
 
 import Button from '.'
 
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello, world!</Button>
-  ))
-  .add('disabled', () => (
-    <Button disabled onClick={action('clicked')}>Hello, world!</Button>
-  ))
-  .add('loading', () => (
-    <Button loading onClick={action('clicked')}>Hello, world!</Button>
-  ))
-  .add('disabled and loading', () => (
-    <Button disabled loading onClick={action('clicked')}>Hello, world!</Button>
-  ))
-  .add('stretch', () => (
-    <Button stretch onClick={action('clicked')}>Hello, world!</Button>
-  ))
-  .add('stretch and loading', () => (
-    <Button stretch loading onClick={action('clicked')}>Hello, world!</Button>
-  ))
+storiesOf('components/Button', module)
+  .add('with text', () => {
+    return (
+      <Button onClick={action('onClick')}>Hello, world!</Button>
+    )
+  })
+  .add('disabled', () => {
+    return (
+      <Button disabled onClick={action('onClick')}>Hello, world!</Button>
+    )
+  })
+  .add('loading', () => {
+    return (
+      <Button loading onClick={action('onClick')}>Hello, world!</Button>
+    )
+  })
+  .add('disabled and loading', () => {
+    return (
+      <Button disabled loading onClick={action('onClick')}>Hello, world!</Button>
+    )
+  })
+  .add('stretch', () => {
+    return (
+      <Button stretch onClick={action('onClick')}>Hello, world!</Button>
+    )
+  })
+  .add('stretch and loading', () => {
+    return (
+      <Button stretch loading onClick={action('onClick')}>Hello, world!</Button>
+    )
+  })

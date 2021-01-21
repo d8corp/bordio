@@ -7,6 +7,7 @@ export interface ILinkProps {
   className?: string
   href?: string
   children: ReactNode
+  onClick?: () => void
 }
 
 class Link extends Component <ILinkProps> {

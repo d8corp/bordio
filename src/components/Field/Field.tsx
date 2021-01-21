@@ -71,12 +71,12 @@ class Field extends PureComponent <IFieldProps> {
         </select>
         <span className='field__focus' />
         <span className={classes('field__select', !value && 'field__select_placeholder')}>
-          {value || placeholder}
+          {(override ? override(value as string) : value) || placeholder}
         </span>
         <ul className='field__menu'>
           {values?.map(val => (
             <li className='field__menu-item' value={val} key={val} onMouseDown={() => this.onSelect(val)}>{override ? override(val) : val}</li>
-          )) || null}
+          )) || <li className='field__menu-item_empty'>Empty</li>}
         </ul>
         <img className='field__select-arrow' src={selectorArrow} alt='arrow' />
         {this.error}
