@@ -121,6 +121,7 @@
 .field__menu-item_empty {
   text-align: center;
   font-size: 12px;
+  margin: 10px;
   color: var(--color-field_placeholder)
 }
 

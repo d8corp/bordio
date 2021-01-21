@@ -35,10 +35,10 @@ export class Field extends PureComponent <IFieldProps> {
     this.onSelect(e.target.value)
   }
 
-  onSelect (value: string | boolean) {
-    const {onChange, name} = this.props
-    if (onChange) {
-      onChange(value as string, name)
+  onSelect (newValue: string | boolean) {
+    const {onChange, name, value} = this.props
+    if (onChange && newValue !== value) {
+      onChange(newValue as string, name)
     }
   }
 
