@@ -1,9 +1,8 @@
 import React, {Component, ReactEventHandler, ReactNode} from 'react'
-import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { gql } from '@apollo/client'
 
 import classes from 'src/utils/classes'
 import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
+import registration from 'src/api/registration'
 import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
 import Link from 'src/components/Link'
@@ -12,11 +11,6 @@ import emailImage from './email.svg'
 import passwordImage from './password.svg'
 
 import './LoginForm.css'
-
-const client = new ApolloClient({
-  uri: 'https://homework.nextbil.com/graphql',
-  cache: new InMemoryCache()
-})
 
 interface ILoginFormState {
   fields: IValidatorField[]
@@ -109,22 +103,9 @@ class LoginForm extends Component<{}, ILoginFormState> {
         data[field.name] = field.value
       }
 
-      client
-        .mutate({
-          mutation: gql`
-            mutation {
-              signup(input: {
-                name: "${data.name}",
-                email: "${data.email}",
-                password: "${data.password}",
-                country: "${data.country}",
-                gender: ${data.gender}
-              }) {
-                id
-              }
-            }
-          `
-        })
+      const {name, email, password, country, gender} = data
+
+      registration(name, email, password, country, gender)
         .then(result => {
           alert(`Success registration, your id ${result.data.signup.id}`)
           this.clear()
