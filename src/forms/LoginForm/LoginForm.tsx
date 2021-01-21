@@ -7,7 +7,6 @@ import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
 import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
 import Link from 'src/components/Link'
-import Loading from 'src/components/Loading'
 
 import emailImage from './email.svg'
 import passwordImage from './password.svg'
@@ -202,7 +201,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
             onChange={this.setFieldValue}
           />
         ))}
-        <Button stretch disabled={disabled}>{loading ? <Loading invert /> : 'Sign up'}</Button>
+        <Button stretch disabled={disabled} loading={loading}>Sign up</Button>
       </form>
     )
   }

@@ -24,11 +24,7 @@ class Field extends PureComponent <IFieldProps> {
   }
 
   onChange: ReactEventHandler = (e: TInputEvent) => {
-    const {onChange, name} = this.props
-
-    if (onChange) {
-      onChange(e.target.value, name)
-    }
+    this.onSelect(e.target.value)
   }
 
   onSelect (value: string | boolean) {

@@ -1,5 +1,6 @@
 import React, {PureComponent, ReactNode} from 'react'
 import classes from 'src/utils/classes'
+import Loading from 'src/components/Loading'
 
 import './Button.css'
 
@@ -12,6 +13,7 @@ export interface IButtonProps {
   className?: string
   stretch?: boolean
   disabled?: boolean
+  loading?: boolean
   onClick?: IOnButtonClick
 }
 
@@ -36,11 +38,11 @@ class Button extends PureComponent<IButtonProps> {
   }
 
   render () {
-    const {children} = this.props
+    const {children, loading} = this.props
 
     return (
-      <button onClick={this.onClick} className={this.className}>
-        {children}
+      <button disabled={loading} onClick={this.onClick} className={this.className}>
+        {loading ? <Loading invert /> : children}
       </button>
     )
   }
