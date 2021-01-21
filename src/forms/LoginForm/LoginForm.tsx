@@ -1,14 +1,22 @@
-import React, {Component, ReactEventHandler} from 'react'
+import React, {Component, ReactEventHandler, ReactNode} from 'react'
 import Field, {IOnFieldChange} from 'src/components/Field'
 import Button from 'src/components/Button'
 import Link from 'src/components/Link'
 import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
+
+import emailImage from './email.svg'
+import passwordImage from './password.svg'
 
 import './LoginForm.css'
 
 interface ILoginFormState {
   fields: IValidatorField[]
   disabled: boolean
+}
+
+const beforeIcons: Record<string, ReactNode> = {
+  password: <img src={passwordImage} alt='password' />,
+  email: <img src={emailImage} alt='email' />,
 }
 
 class LoginForm extends Component<{}, ILoginFormState> {
@@ -135,6 +143,7 @@ class LoginForm extends Component<{}, ILoginFormState> {
         {fields.map(field => (
           <Field
             {...field}
+            before={beforeIcons[field.name]}
             key={field.name}
             onChange={this.setFieldValue}
           />

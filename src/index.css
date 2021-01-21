@@ -43,5 +43,6 @@ html, body {
   --color-field_menu-color: var(--color-dark);
   --color-field_radio: var(--color-accent);
 
-  --color-link: var(--color-accent)
+  --color-link: var(--color-accent);
+  --color-link_hover: var(--color-accent-light);
 }

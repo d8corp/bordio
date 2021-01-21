@@ -15,6 +15,7 @@ export interface IOnFieldChange {
 
 interface IFieldProps extends IValidatorField {
   onChange?: IOnFieldChange
+  before?: ReactNode
 }
 
 class Field extends PureComponent <IFieldProps> {
@@ -35,6 +36,13 @@ class Field extends PureComponent <IFieldProps> {
     if (onChange) {
       onChange(value, name)
     }
+  }
+
+  get before () {
+    const {before} = this.props
+    return before ? (
+      before
+    ) : null
   }
 
   get error (): ReactNode {
@@ -125,10 +133,11 @@ class Field extends PureComponent <IFieldProps> {
   }
 
   get input () {
-    const {placeholder, name, type = 'text'} = this.props
+    const {placeholder, name, type = 'text', before = null} = this.props
 
     return type === 'select' ? this.select : (
       <label className='field'>
+        {before}
         <input
           onInput={this.onInput}
           placeholder={placeholder as string}
