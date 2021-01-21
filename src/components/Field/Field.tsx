@@ -19,22 +19,24 @@ export interface IOnFieldChange {
   (value: boolean, name: 'checkbox'): void
   (value: string, name: string): void
 }
-
 export interface IFieldProps extends IValidatorField {
   onChange?: IOnFieldChange
   before?: ReactNode
 }
 
 // classes
+/**
+ * @description Use Field component inside a form
+ * */
 export class Field extends PureComponent <IFieldProps> {
   static defaultProps = {
     type: 'text',
   }
 
+  // methods
   onChange: ReactEventHandler = (e: TInputEvent) => {
     this.onSelect(e.target.value)
   }
-
   onSelect (newValue: string | boolean) {
     const {onChange, name, value} = this.props
     if (onChange && newValue !== value) {
@@ -42,29 +44,24 @@ export class Field extends PureComponent <IFieldProps> {
     }
   }
 
-  get before () {
-    const {before} = this.props
-    return before ? (
-      before
-    ) : null
+  // elements
+  get before (): ReactNode {
+    return this.props.before ?? null
   }
-
   get error (): ReactNode {
     let {error} = this.props
 
-    if (!error) {
-      return null
-    }
-
-    return (
+    return error ? (
       <span className='field__error'>
         {error}
       </span>
-    )
+    ) : null
   }
 
-  get select () {
+  // elements by type
+  get select (): ReactNode {
     const {name, placeholder, values, override, value} = this.props
+
     return (
       <label className='field'>
         <select
@@ -91,9 +88,9 @@ export class Field extends PureComponent <IFieldProps> {
       </label>
     )
   }
-
-  get radiobox () {
+  get radiobox (): ReactNode {
     const {values, value, override} = this.props
+
     return (
       <div className='field__radiobox'>
         {values?.map(val => (
@@ -114,8 +111,7 @@ export class Field extends PureComponent <IFieldProps> {
       </div>
     )
   }
-
-  get checkbox () {
+  get checkbox (): ReactNode {
     const {value = false, placeholder} = this.props
 
     return (
@@ -136,8 +132,7 @@ export class Field extends PureComponent <IFieldProps> {
       </div>
     )
   }
-
-  get input () {
+  get other (): ReactNode {
     const {placeholder, name, type = 'text', before = null, value = ''} = this.props
 
     return (
@@ -171,7 +166,7 @@ export class Field extends PureComponent <IFieldProps> {
         return this.checkbox
       }
       default: {
-        return this.input
+        return this.other
       }
     }
   }
