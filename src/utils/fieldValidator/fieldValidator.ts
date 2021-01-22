@@ -1,9 +1,3 @@
-import {ReactNode} from 'react'
-
-export interface IFieldValueOverride {
-  (value: string): ReactNode
-}
-
 export interface IValidatorField {
   name: string
   value?: string | boolean

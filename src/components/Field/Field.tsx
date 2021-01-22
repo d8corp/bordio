@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 
 // local utils
-import {IFieldValueOverride, IValidatorField} from 'src/utils/fieldValidator'
+import {IValidatorField} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
 
 // file imports
@@ -30,7 +30,7 @@ export interface IFieldOnChangeProp {
 export interface IFieldPros extends IValidatorField {
   type?: string
   error?: string
-  override?: IFieldValueOverride
+  override?: (value: string) => ReactNode
   before?: ReactNode
 }
 export interface IFieldStringProps extends IFieldPros {
