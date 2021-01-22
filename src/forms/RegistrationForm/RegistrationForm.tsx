@@ -6,7 +6,7 @@ import fieldValidator from 'src/utils/fieldValidator'
 import registration from 'src/api/registration'
 
 // components
-import Field, {IFieldOnChangeProp, FieldProps} from 'src/components/Field'
+import Field, {FieldProps} from 'src/components/Field'
 import Button from 'src/components/Button'
 
 // file imports
@@ -18,7 +18,7 @@ import registrationFormFields from './registrationFormFields'
 import './RegistrationForm.css'
 
 // interfaces
-interface IRegistrationFormState {
+interface RegistrationFormState {
   fields: FieldProps[]
   disabled: boolean
   loading: boolean
@@ -31,10 +31,7 @@ const beforeIcons: Record<string, ReactNode> = {
 }
 
 // classes
-/**
- * @description Simple form to sign-up
- * */
-class RegistrationForm extends Component<{}, IRegistrationFormState> {
+class RegistrationForm extends Component<{}, RegistrationFormState> {
   state = {
     fields: registrationFormFields,
     disabled: true,
@@ -43,6 +40,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
 
   isValid = false
 
+  // events
   onSubmit: ReactEventHandler = e => {
     e.preventDefault()
 
@@ -71,7 +69,20 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
         })
     }
   }
+  onChange = (value: boolean | string, name: string) => {
+    const {fields} = this.state
+    const newFields = fields.map(field => field.name === name ? {
+      ...field,
+      value,
+      error: fieldValidator({...field, value})
+    } : field) as FieldProps[]
 
+    this.setState({fields: newFields})
+
+    this.updateDisabled(newFields)
+  }
+
+  // methods
   clear () {
     const newFields = []
 
@@ -81,7 +92,6 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
 
     this.setState({fields: newFields})
   }
-
   validation () {
     const newFields = [] as FieldProps[]
     const fields = this.state.fields
@@ -94,7 +104,6 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
 
     this.updateDisabled(newFields)
   }
-
   updateDisabled (fields: FieldProps[] = this.state.fields) {
     let disabled = false
 
@@ -109,19 +118,6 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
     this.setState({disabled})
   }
 
-  setFieldValue: IFieldOnChangeProp = (value: boolean | string, name: string) => {
-    const {fields} = this.state
-    const newFields = fields.map(field => field.name === name ? {
-      ...field,
-      value,
-      error: fieldValidator({...field, value})
-    } : field) as FieldProps[]
-
-    this.setState({fields: newFields})
-
-    this.updateDisabled(newFields)
-  }
-
   render () {
     const {fields, disabled, loading} = this.state
 
@@ -133,7 +129,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
             {...field}
             before={beforeIcons[field.name]}
             key={field.name}
-            onChange={this.setFieldValue}
+            onChange={this.onChange}
           />
         ))}
         <Button stretch disabled={disabled} loading={loading}>Sign up</Button>
