@@ -2,6 +2,11 @@
   color: var(--color-link);
   text-decoration: none;
   cursor: pointer;
+  outline: none;
+}
+
+.link:focus {
+  text-decoration: underline;
 }
 
 .link:hover {
