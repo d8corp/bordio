@@ -3,7 +3,6 @@ import React from 'react'
 // components
 import RegistrationForm from 'src/forms/RegistrationForm'
 
-// functions
 /**
  * @description Main application component
  * */

@@ -1,7 +1,6 @@
 import React, {Component, ReactEventHandler, ReactNode} from 'react'
 
 // local utils
-import classes from 'src/utils/classes'
 import fieldValidator from 'src/utils/fieldValidator'
 
 // api
