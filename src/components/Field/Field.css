@@ -55,7 +55,6 @@
 .field__input_select {
   opacity: 0;
   position: absolute;
-  cursor: pointer;
 }
 
 .field__select {
@@ -229,8 +228,8 @@
 }
 
 @media (min-width: 400px) {
-  .field__input_select > option {
-    display: none;
+  .field__input_select {
+    pointer-events: none;
   }
 }
 

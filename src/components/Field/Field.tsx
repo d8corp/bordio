@@ -61,6 +61,8 @@ export class Field extends PureComponent <FieldProps> {
     const isDown = event.key === 'ArrowDown'
 
     if (isDown || isUp) {
+      event.preventDefault()
+
       const {value, values} = this.props
 
       if (values) {
