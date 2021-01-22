@@ -5,7 +5,6 @@ import React, {
   RefObject,
   ChangeEvent, KeyboardEvent
 } from 'react'
-
 // local utils
 import {IValidatorField} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
@@ -18,15 +17,12 @@ import checkboxArrow from './checkboxArrow.svg'
 import './Field.css'
 
 // types
-export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLSelectElement>
 export type FieldProps = IFieldStringProps | IFieldBooleanProps
 export type TFieldStringName = 'select' | 'text' | 'password' | 'email' | 'radiobox' | string
 export type TFieldBooleanName = 'checkbox'
 
 // interfaces
-export interface IFieldOnChangeProp {
-  (value: boolean | string, name: string): void
-}
 export interface IFieldPros extends IValidatorField {
   type?: string
   error?: string
@@ -89,9 +85,6 @@ export class Field extends PureComponent <FieldProps> {
   }
 
   // elements
-  get before (): ReactNode {
-    return this.props.before ?? null
-  }
   get error (): ReactNode {
     let {error} = this.props
 
@@ -185,7 +178,7 @@ export class Field extends PureComponent <FieldProps> {
     )
   }
   get other (): ReactNode {
-    const {placeholder, name, type = 'text', before = null, value = ''} = this.props as IFieldStringProps
+    const {placeholder, name, type, before, value = ''} = this.props as IFieldStringProps
 
     return (
       <label className='field'>
