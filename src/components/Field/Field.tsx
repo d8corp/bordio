@@ -60,13 +60,9 @@ export class Field extends PureComponent <IFieldProps> {
           id <= 0 ? max : id - 1
         )
 
-        this.onSelect((target[newId + 1] as HTMLOptionElement).value)
+        this.onSelect(values[newId])
 
-        const currentElement = ul.current?.children[newId]
-
-        if (currentElement) {
-          currentElement.scrollIntoView({behavior: 'smooth', block: "center"})
-        }
+        ul.current?.children[newId].scrollIntoView({behavior: 'smooth', block: "center"})
       }
     }
   }
