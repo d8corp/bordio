@@ -42,42 +42,61 @@ class RegistrationForm extends Component<{}, RegistrationFormState> {
   onSubmit: ReactEventHandler = e => {
     e.preventDefault()
 
-    this.validation(() => {
-      this.updateDisabled(() => {
-        if (!this.state.disabled) {
-          this.setState({loading: true})
+    this.validation()
 
-          const data: Record<string, any> = {}
+    if (!this.state.disabled) {
+      this.setState({loading: true})
 
-          for (const field of this.state.fields) {
-            data[field.name] = field.value
-          }
+      const data: Record<string, any> = {}
 
-          const {name, email, password, country, gender} = data
+      for (const field of this.state.fields) {
+        data[field.name] = field.value
+      }
 
-          registration(name, email, password, country, gender)
-            .then(result => {
-              alert(`Success registration, your id ${result.data.signup.id}`)
-              this.clear()
-            }, error => {
-              alert(error.message)
-            })
-            .finally(() => {
-              this.setState({loading: false})
-            })
-        }
-      })
-    })
+      const {name, email, password, country, gender} = data
+
+      registration(name, email, password, country, gender)
+        .then(result => {
+          alert(`Success registration, your id ${result.data.signup.id}`)
+          this.clear()
+        }, error => {
+          alert(error.message)
+        })
+        .finally(() => {
+          this.setState({loading: false})
+        })
+    }
   }
   onChange = (value: boolean | string, name: string) => {
-    const {fields} = this.state
-    const newFields = fields.map(field => field.name === name ? {
-      ...field,
-      value,
-      error: fieldValidator({...field, value})
-    } : field) as FieldProps[]
+    const fields: FieldProps[] = []
+    let disabled = false
 
-    this.setState({fields: newFields}, () => this.updateDisabled())
+    function addField (field: FieldProps) {
+      fields.push(field)
+
+      const invalidRequired = field.required && !field.value
+
+      if (invalidRequired || field.error) {
+        disabled = true
+      }
+    }
+
+    for (const field of this.state.fields) {
+      if (field.name === name) {
+        const newField: FieldProps = {
+          ...field,
+          value: value as any,
+        }
+
+        newField.error = fieldValidator(newField)
+
+        addField(newField)
+      } else {
+        addField(field)
+      }
+    }
+
+    this.setState({fields, disabled})
   }
 
   // methods
@@ -88,29 +107,17 @@ class RegistrationForm extends Component<{}, RegistrationFormState> {
       newFields.push({...field, value: undefined, error: ''})
     }
 
-    this.setState({fields: newFields}, () => this.updateDisabled())
+    this.setState({fields: newFields, disabled: true})
   }
-  validation (callback?: () => void) {
-    const newFields = [] as FieldProps[]
+  validation () {
+    const newFields = []
     const fields = this.state.fields
 
     for (const field of fields) {
       newFields.push({...field, error: fieldValidator(field)})
     }
 
-    this.setState({fields: newFields}, callback)
-  }
-  updateDisabled (callback?: () => void) {
-    let disabled = false
-
-    for (const field of this.state.fields) {
-      if (!field.value || field.error) {
-        disabled = true
-        break
-      }
-    }
-
-    this.setState({disabled}, callback)
+    this.setState({fields: newFields})
   }
 
   render () {
