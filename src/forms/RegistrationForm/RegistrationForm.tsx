@@ -3,6 +3,8 @@ import React, {Component, ReactEventHandler, ReactNode} from 'react'
 // local utils
 import classes from 'src/utils/classes'
 import fieldValidator from 'src/utils/fieldValidator'
+
+// api
 import registration from 'src/api/registration'
 
 // components
@@ -18,20 +20,23 @@ import registrationFormFields from './registrationFormFields'
 import './RegistrationForm.css'
 
 // interfaces
-interface RegistrationFormState {
+export interface RegistrationFormState {
   fields: FieldProps[]
   disabled: boolean
   loading: boolean
 }
+export interface RegistrationFormProps {
+  children?: never
+}
 
 // variables
-const beforeIcons: Record<string, ReactNode> = {
+export const BEFORE_ICONS: Record<string, ReactNode> = {
   password: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
   email: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
 }
 
 // classes
-class RegistrationForm extends Component<{}, RegistrationFormState> {
+class RegistrationForm extends Component<RegistrationFormProps, RegistrationFormState> {
   state = {
     fields: registrationFormFields,
     disabled: true,
@@ -42,11 +47,15 @@ class RegistrationForm extends Component<{}, RegistrationFormState> {
   onSubmit: ReactEventHandler = e => {
     e.preventDefault()
 
+    const {disabled, loading} = this.state
+
+    if (loading) {
+      return
+    }
+
     this.validation()
 
-    if (!this.state.disabled) {
-      this.setState({loading: true})
-
+    if (!disabled) {
       const data: Record<string, any> = {}
 
       for (const field of this.state.fields) {
@@ -65,6 +74,8 @@ class RegistrationForm extends Component<{}, RegistrationFormState> {
         .finally(() => {
           this.setState({loading: false})
         })
+
+      this.setState({loading: true})
     }
   }
   onChange = (value: boolean | string, name: string) => {
@@ -124,12 +135,12 @@ class RegistrationForm extends Component<{}, RegistrationFormState> {
     const {fields, disabled, loading} = this.state
 
     return (
-      <form className={classes('registration-form', loading && 'registration-form_loading')} onSubmit={this.onSubmit}>
+      <form className='registration-form' onSubmit={this.onSubmit}>
         <h1 className='registration-form__title'>Create a new account</h1>
         {fields.map(field => (
           <Field
             {...field}
-            before={beforeIcons[field.name]}
+            before={BEFORE_ICONS[field.name]}
             key={field.name}
             onChange={this.onChange}
           />

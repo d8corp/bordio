@@ -8,10 +8,6 @@
   margin: 5px;
   color: var(--color-registration-form_color);
 }
-.registration-form_loading {
-  pointer-events: none;
-  filter: grayscale(1);
-}
 
 .registration-form__icon_password {
   margin: 0 17px 5px 1px;
