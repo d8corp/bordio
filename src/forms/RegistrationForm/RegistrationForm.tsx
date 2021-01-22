@@ -2,11 +2,11 @@ import React, {Component, ReactEventHandler, ReactNode} from 'react'
 
 // local utils
 import classes from 'src/utils/classes'
-import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
+import fieldValidator from 'src/utils/fieldValidator'
 import registration from 'src/api/registration'
 
 // components
-import Field, {IFieldOnChangeProp, TFieldProps} from 'src/components/Field'
+import Field, {IFieldOnChangeProp, FieldProps} from 'src/components/Field'
 import Button from 'src/components/Button'
 
 // file imports
@@ -19,7 +19,7 @@ import './RegistrationForm.css'
 
 // interfaces
 interface IRegistrationFormState {
-  fields: TFieldProps[]
+  fields: FieldProps[]
   disabled: boolean
   loading: boolean
 }
@@ -83,7 +83,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
   }
 
   validation () {
-    const newFields = [] as TFieldProps[]
+    const newFields = [] as FieldProps[]
     const fields = this.state.fields
 
     for (const field of fields) {
@@ -95,7 +95,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
     this.updateDisabled(newFields)
   }
 
-  updateDisabled (fields: IValidatorField[] = this.state.fields) {
+  updateDisabled (fields: FieldProps[] = this.state.fields) {
     let disabled = false
 
     for (const field of fields) {
@@ -115,7 +115,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
       ...field,
       value,
       error: fieldValidator({...field, value})
-    } : field) as TFieldProps[]
+    } : field) as FieldProps[]
 
     this.setState({fields: newFields})
 

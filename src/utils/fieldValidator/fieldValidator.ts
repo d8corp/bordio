@@ -7,16 +7,12 @@ export interface IFieldValueOverride {
 export interface IValidatorField {
   name: string
   value?: string | boolean
-  type?: string
-  error?: string
-  required?: boolean
-  placeholder?: string | ReactNode
   values?: string[]
+  required?: boolean
   pattern?: string
-  requiredError?: string
   patternError?: string
+  requiredError?: string
   valuesError?: string
-  override?: IFieldValueOverride
 }
 
 export default function ({

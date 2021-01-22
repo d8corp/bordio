@@ -9,17 +9,6 @@
   }
 }
 
-@keyframes hide-error {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-}
-
 .field {
   display: flex;
   gap: 14px;
@@ -141,10 +130,15 @@
   left: 18px;
   color: var(--color-field_error);
   font: normal normal normal 10px/13px Roboto;
-  animation: show-error 0.3s both;
+  animation: show-error 0.3s;
+  transition: all 0.3s;
+  opacity: 1;
+  transform: translateY(0);
 }
 .field__input:focus ~ .field__error {
-  animation: hide-error 0.3s both;
+  animation: none;
+  opacity: 0;
+  transform: translateY(5px);
 }
 
 .field__radiobox {

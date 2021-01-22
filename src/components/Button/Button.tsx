@@ -12,7 +12,7 @@ export interface IOnButtonClick {
   (): void
 }
 
-export interface IButtonProps {
+export interface ButtonProps {
   children?: ReactNode
   className?: string
   stretch?: boolean
@@ -22,7 +22,7 @@ export interface IButtonProps {
 }
 
 // classes
-export class Button extends PureComponent<IButtonProps> {
+export class Button extends PureComponent<ButtonProps> {
   get className () {
     const {stretch, disabled, className} = this.props
 

@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 
 // local utils
-import {IValidatorField} from 'src/utils/fieldValidator'
+import {IFieldValueOverride, IValidatorField} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
 
 // file imports
@@ -19,7 +19,7 @@ import './Field.css'
 
 // types
 export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-export type TFieldProps = IFieldStringProps | IFieldBooleanProps
+export type FieldProps = IFieldStringProps | IFieldBooleanProps
 export type TFieldStringName = 'select' | 'text' | 'password' | 'email' | 'radiobox' | string
 export type TFieldBooleanName = 'checkbox'
 
@@ -27,23 +27,27 @@ export type TFieldBooleanName = 'checkbox'
 export interface IFieldOnChangeProp {
   (value: boolean | string, name: string): void
 }
-export interface IFieldStringProps extends IValidatorField {
+export interface IFieldPros extends IValidatorField {
+  type?: string
+  error?: string
+  override?: IFieldValueOverride
+  before?: ReactNode
+}
+export interface IFieldStringProps extends IFieldPros {
   type?: TFieldStringName
   value?: string
   placeholder?: string
   onChange?: (value: string, name: string) => void
-  before?: ReactNode
 }
-export interface IFieldBooleanProps extends IValidatorField {
+export interface IFieldBooleanProps extends IFieldPros {
   type?: TFieldBooleanName
   value?: boolean
   placeholder?: ReactNode
   onChange?: (value: boolean, name: string) => void
-  before?: ReactNode
 }
 
 // classes
-export class Field extends PureComponent <TFieldProps> {
+export class Field extends PureComponent <FieldProps> {
   static defaultProps = {
     type: 'text',
   }

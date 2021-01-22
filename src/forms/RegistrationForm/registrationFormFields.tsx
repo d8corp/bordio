@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'src/components/Link'
-import {TFieldProps} from 'src/components/Field'
+import {FieldProps} from 'src/components/Field'
 
-export const fields: TFieldProps[] = [
+export const fields: FieldProps[] = [
   {
     name: 'name',
     type: 'text',
