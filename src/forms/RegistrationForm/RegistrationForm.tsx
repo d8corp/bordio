@@ -6,7 +6,7 @@ import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
 import registration from 'src/api/registration'
 
 // components
-import Field, {IOnChangeFieldProps, TFieldProps} from 'src/components/Field'
+import Field, {IFieldOnChangeProp, TFieldProps} from 'src/components/Field'
 import Button from 'src/components/Button'
 
 // file imports
@@ -109,7 +109,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
     this.setState({disabled})
   }
 
-  setFieldValue: IOnChangeFieldProps = (value: boolean | string, name: string) => {
+  setFieldValue: IFieldOnChangeProp = (value: boolean | string, name: string) => {
     const {fields} = this.state
     const newFields = fields.map(field => field.name === name ? {
       ...field,

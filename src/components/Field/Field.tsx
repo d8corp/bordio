@@ -18,24 +18,26 @@ import checkboxArrow from './checkboxArrow.svg'
 import './Field.css'
 
 // types
-export type TOnChangeEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
 export type TFieldProps = IFieldStringProps | IFieldBooleanProps
 export type TFieldStringName = 'select' | 'text' | 'password' | 'email' | 'radiobox' | string
 export type TFieldBooleanName = 'checkbox'
 
 // interfaces
-export interface IOnChangeFieldProps {
+export interface IFieldOnChangeProp {
   (value: boolean | string, name: string): void
 }
 export interface IFieldStringProps extends IValidatorField {
   type?: TFieldStringName
   value?: string
+  placeholder?: string
   onChange?: (value: string, name: string) => void
   before?: ReactNode
 }
 export interface IFieldBooleanProps extends IValidatorField {
   type?: TFieldBooleanName
   value?: boolean
+  placeholder?: ReactNode
   onChange?: (value: boolean, name: string) => void
   before?: ReactNode
 }
@@ -47,7 +49,7 @@ export class Field extends PureComponent <TFieldProps> {
   }
 
   // methods
-  onChange (event: TOnChangeEvent) {
+  onChange (event: TFieldOnChangeEvent) {
     this.setValue(event.target.value)
   }
   onSelectKeyDown (event: KeyboardEvent<HTMLSelectElement>, ul: RefObject<HTMLUListElement>) {
@@ -133,7 +135,7 @@ export class Field extends PureComponent <TFieldProps> {
     )
   }
   get radiobox (): ReactNode {
-    const {values, value, override} = this.props
+    const {values, value, override} = this.props as IFieldStringProps
 
     return (
       <div className='field__radiobox'>
@@ -177,15 +179,15 @@ export class Field extends PureComponent <TFieldProps> {
     )
   }
   get other (): ReactNode {
-    const {placeholder, name, type = 'text', before = null, value = ''} = this.props
+    const {placeholder, name, type = 'text', before = null, value = ''} = this.props as IFieldStringProps
 
     return (
       <label className='field'>
         {before}
         <input
           onChange={e => this.onChange(e)}
-          value={value as string}
-          placeholder={placeholder as string}
+          value={value}
+          placeholder={placeholder}
           name={name}
           className='field__input'
           type={type}
