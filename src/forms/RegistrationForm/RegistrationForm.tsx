@@ -19,7 +19,7 @@ import './RegistrationForm.css'
 
 // interfaces
 interface IRegistrationFormState {
-  fields: IValidatorField[]
+  fields: TFieldProps[]
   disabled: boolean
   loading: boolean
 }
@@ -36,7 +36,7 @@ const beforeIcons: Record<string, ReactNode> = {
  * */
 class RegistrationForm extends Component<{}, IRegistrationFormState> {
   state = {
-    fields: registrationFormFields as TFieldProps[],
+    fields: registrationFormFields,
     disabled: true,
     loading: false,
   }
@@ -83,8 +83,8 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
   }
 
   validation () {
-    const newFields: IValidatorField[] = []
-    const fields: IValidatorField[] = this.state.fields
+    const newFields = [] as TFieldProps[]
+    const fields = this.state.fields
 
     for (const field of fields) {
       newFields.push({...field, error: fieldValidator(field)})
@@ -115,7 +115,7 @@ class RegistrationForm extends Component<{}, IRegistrationFormState> {
       ...field,
       value,
       error: fieldValidator({...field, value})
-    } : field)
+    } : field) as TFieldProps[]
 
     this.setState({fields: newFields})
 

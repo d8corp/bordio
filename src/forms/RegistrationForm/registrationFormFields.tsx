@@ -1,7 +1,8 @@
 import React from 'react'
 import Link from 'src/components/Link'
+import {TFieldProps} from 'src/components/Field'
 
-export default [
+export const fields: TFieldProps[] = [
   {
     name: 'name',
     type: 'text',
@@ -60,3 +61,5 @@ export default [
     requiredError: 'You must accept the policies',
   }
 ]
+
+export default fields
