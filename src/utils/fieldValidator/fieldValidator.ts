@@ -1,7 +1,7 @@
 import {ReactNode} from 'react'
 
 export interface IFieldValueOverride {
-  (value: string): string
+  (value: string): ReactNode
 }
 
 export interface IValidatorField {

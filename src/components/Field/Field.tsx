@@ -22,8 +22,13 @@ export type TOnChangeEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSel
 
 // interfaces
 export interface IOnChangeFieldProps {
-  (value: boolean, name: 'checkbox'): void
-  (value: string, name: string): void
+  (value: boolean | string, name: string): void
+}
+export interface IFieldSelectProps extends IValidatorField {
+  name: 'select'
+  value?: string
+  onChange?: (value: string, name: 'select') => void
+  before?: ReactNode
 }
 export interface IFieldProps extends IValidatorField {
   onChange?: IOnChangeFieldProps
@@ -37,19 +42,12 @@ export class Field extends PureComponent <IFieldProps> {
   }
 
   // methods
-  onChange (e: TOnChangeEvent) {
-    this.onSelect(e.target.value)
+  onChange (event: TOnChangeEvent) {
+    this.setValue(event.target.value)
   }
-  onSelect (newValue?: string | boolean) {
-    const {onChange, name, value} = this.props
-
-    if (onChange && newValue !== value) {
-      onChange(newValue as string, name)
-    }
-  }
-  onSelectKeyDown (e: KeyboardEvent<HTMLSelectElement>, ul: RefObject<HTMLUListElement>) {
-    const isUp = e.key === 'ArrowUp'
-    const isDown = e.key === 'ArrowDown'
+  onSelectKeyDown (event: KeyboardEvent<HTMLSelectElement>, ul: RefObject<HTMLUListElement>) {
+    const isUp = event.key === 'ArrowUp'
+    const isDown = event.key === 'ArrowDown'
 
     if (isDown || isUp) {
       const {value, values} = this.props
@@ -63,10 +61,17 @@ export class Field extends PureComponent <IFieldProps> {
           id <= 0 ? max : id - 1
         )
 
-        this.onSelect(values[newId])
+        this.setValue(values[newId])
 
         ul.current?.children[newId].scrollIntoView({behavior: 'smooth', block: "center"})
       }
+    }
+  }
+  setValue (newValue?: string | boolean) {
+    const {onChange, name, value} = this.props
+
+    if (onChange && newValue !== value) {
+      onChange(newValue as string, name)
     }
   }
 
@@ -86,14 +91,14 @@ export class Field extends PureComponent <IFieldProps> {
 
   // elements by type
   get select (): ReactNode {
-    const {name, placeholder, values, override, value} = this.props
+    const {name, placeholder, values, override, value} = this.props as IFieldSelectProps
     const ul = createRef<HTMLUListElement>()
 
     return (
       <label className='field'>
         <select
           onKeyDown={e => this.onSelectKeyDown(e, ul)}
-          value={value as string}
+          value={value}
           className='field__input field__input_select'
           onChange={e => this.onChange(e)}
           name={name}>
@@ -104,7 +109,7 @@ export class Field extends PureComponent <IFieldProps> {
         </select>
         <span className='field__focus' />
         <span className={classes('field__select', !value && 'field__select_placeholder')}>
-          {(override ? override(value as string) : value) || placeholder}
+          {(override && value ? override(value) : value) || placeholder}
         </span>
         <ul ref={ul} className='field__menu'>
           {values?.map(val => (
@@ -112,7 +117,7 @@ export class Field extends PureComponent <IFieldProps> {
               className={classes('field__menu-item', val === value && 'field__menu-item_select')}
               value={val}
               key={val}
-              onMouseDown={() => this.onSelect(val)}>
+              onMouseDown={() => this.setValue(val)}>
               {override ? override(val) : val}
             </li>
           )) || <li className='field__menu-item_empty'>Empty</li>}
@@ -133,7 +138,7 @@ export class Field extends PureComponent <IFieldProps> {
               className='field__radiobox-input'
               type='radio'
               checked={value === val}
-              onChange={e => e.target.checked && this.onSelect(val)}
+              onChange={e => e.target.checked && this.setValue(val)}
             />
             <span className='field__radiobox-mark' />
             <span className='field__radiobox-placeholder'>
@@ -155,7 +160,7 @@ export class Field extends PureComponent <IFieldProps> {
             className='field__checkbox-input'
             type='checkbox'
             checked={value as boolean}
-            onChange={e => this.onSelect(e.target.checked)}
+            onChange={e => this.setValue(e.target.checked)}
           />
           <span className='field__checkbox-mark'>
           <img className='field__checkbox-mark-icon' src={checkboxArrow} alt='arrow'/>
