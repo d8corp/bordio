@@ -6,7 +6,7 @@ import fieldValidator, {IValidatorField} from 'src/utils/fieldValidator'
 import registration from 'src/api/registration'
 
 // components
-import Field, {IOnChangeFieldProps} from 'src/components/Field'
+import Field, {IOnChangeFieldProps, TFieldProps} from 'src/components/Field'
 import Button from 'src/components/Button'
 
 // file imports
@@ -36,7 +36,7 @@ const beforeIcons: Record<string, ReactNode> = {
  * */
 class RegistrationForm extends Component<{}, IRegistrationFormState> {
   state = {
-    fields: registrationFormFields,
+    fields: registrationFormFields as TFieldProps[],
     disabled: true,
     loading: false,
   }

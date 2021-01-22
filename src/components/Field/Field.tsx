@@ -19,24 +19,29 @@ import './Field.css'
 
 // types
 export type TOnChangeEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+export type TFieldProps = IFieldStringProps | IFieldBooleanProps
+export type TFieldStringName = 'select' | 'text' | 'password' | 'email' | 'radiobox' | string
+export type TFieldBooleanName = 'checkbox'
 
 // interfaces
 export interface IOnChangeFieldProps {
   (value: boolean | string, name: string): void
 }
-export interface IFieldSelectProps extends IValidatorField {
-  name: 'select'
+export interface IFieldStringProps extends IValidatorField {
+  type?: TFieldStringName
   value?: string
-  onChange?: (value: string, name: 'select') => void
+  onChange?: (value: string, name: string) => void
   before?: ReactNode
 }
-export interface IFieldProps extends IValidatorField {
-  onChange?: IOnChangeFieldProps
+export interface IFieldBooleanProps extends IValidatorField {
+  type?: TFieldBooleanName
+  value?: boolean
+  onChange?: (value: boolean, name: string) => void
   before?: ReactNode
 }
 
 // classes
-export class Field extends PureComponent <IFieldProps> {
+export class Field extends PureComponent <TFieldProps> {
   static defaultProps = {
     type: 'text',
   }
@@ -68,7 +73,7 @@ export class Field extends PureComponent <IFieldProps> {
     }
   }
   setValue (newValue?: string | boolean) {
-    const {onChange, name, value} = this.props
+    const {onChange, name, value} = this.props as IFieldStringProps
 
     if (onChange && newValue !== value) {
       onChange(newValue as string, name)
@@ -91,7 +96,7 @@ export class Field extends PureComponent <IFieldProps> {
 
   // elements by type
   get select (): ReactNode {
-    const {name, placeholder, values, override, value} = this.props as IFieldSelectProps
+    const {name, placeholder, values, override, value} = this.props as IFieldStringProps
     const ul = createRef<HTMLUListElement>()
 
     return (
@@ -151,7 +156,7 @@ export class Field extends PureComponent <IFieldProps> {
     )
   }
   get checkbox (): ReactNode {
-    const {value = false, placeholder} = this.props
+    const {value = false, placeholder} = this.props as IFieldBooleanProps
 
     return (
       <div className='field__checkbox'>
@@ -159,7 +164,7 @@ export class Field extends PureComponent <IFieldProps> {
           <input
             className='field__checkbox-input'
             type='checkbox'
-            checked={value as boolean}
+            checked={value}
             onChange={e => this.setValue(e.target.checked)}
           />
           <span className='field__checkbox-mark'>
