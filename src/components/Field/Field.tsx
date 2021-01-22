@@ -1,4 +1,10 @@
-import React, {BaseSyntheticEvent, PureComponent, ReactEventHandler, ReactNode, createRef, RefObject} from 'react'
+import React, {
+  PureComponent,
+  ReactNode,
+  createRef,
+  RefObject,
+  ChangeEvent, KeyboardEvent
+} from 'react'
 
 // local utils
 import {IValidatorField} from 'src/utils/fieldValidator'
@@ -12,38 +18,36 @@ import checkboxArrow from './checkboxArrow.svg'
 import './Field.css'
 
 // types
-export type TInputEvent = BaseSyntheticEvent<any, any, HTMLInputElement>
+export type TOnChangeEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
 
 // interfaces
-export interface IOnFieldChange {
+export interface IOnChangeFieldProps {
   (value: boolean, name: 'checkbox'): void
   (value: string, name: string): void
 }
 export interface IFieldProps extends IValidatorField {
-  onChange?: IOnFieldChange
+  onChange?: IOnChangeFieldProps
   before?: ReactNode
 }
 
 // classes
-/**
- * @description Use Field component inside a form
- * */
 export class Field extends PureComponent <IFieldProps> {
   static defaultProps = {
     type: 'text',
   }
 
   // methods
-  onChange: ReactEventHandler = (e: TInputEvent) => {
+  onChange (e: TOnChangeEvent) {
     this.onSelect(e.target.value)
   }
   onSelect (newValue?: string | boolean) {
     const {onChange, name, value} = this.props
+
     if (onChange && newValue !== value) {
       onChange(newValue as string, name)
     }
   }
-  onSelectKeyDown (e: KeyboardEvent, ul: RefObject<HTMLUListElement>) {
+  onSelectKeyDown (e: KeyboardEvent<HTMLSelectElement>, ul: RefObject<HTMLUListElement>) {
     const isUp = e.key === 'ArrowUp'
     const isDown = e.key === 'ArrowDown'
 
@@ -51,9 +55,8 @@ export class Field extends PureComponent <IFieldProps> {
       const {value, values} = this.props
 
       if (values) {
-        const target: HTMLSelectElement = e.target as HTMLSelectElement
         const id = values.indexOf(value as string)
-        const max = target.length - 2
+        const max = values.length - 1
         const newId = isDown ? (
           id >= max ? 0 : id + 1
         ) : (
@@ -89,10 +92,10 @@ export class Field extends PureComponent <IFieldProps> {
     return (
       <label className='field'>
         <select
-          onKeyDown={e => this.onSelectKeyDown(e as unknown as KeyboardEvent, ul)}
+          onKeyDown={e => this.onSelectKeyDown(e, ul)}
           value={value as string}
           className='field__input field__input_select'
-          onChange={this.onChange}
+          onChange={e => this.onChange(e)}
           name={name}>
           <option disabled>{placeholder}</option>
           {values?.map(val => (
@@ -170,7 +173,7 @@ export class Field extends PureComponent <IFieldProps> {
       <label className='field'>
         {before}
         <input
-          onChange={this.onChange}
+          onChange={e => this.onChange(e)}
           value={value as string}
           placeholder={placeholder as string}
           name={name}
