@@ -23,7 +23,6 @@ export interface FormProps {
   children?: never
   onChange?: (fields: FormField[]) => any
   action?: (data: Record<string, any>) => Promise<any>
-  title?: ReactNode
   actionName?: ReactNode
 }
 export interface FormFieldMixer <T> {
@@ -133,11 +132,10 @@ class Form extends Component<FormProps, FormState> {
 
   render () {
     const {disabled, loading} = this.state
-    const {fields, title, actionName = 'Confirm'} = this.props
+    const {fields, actionName = 'Confirm'} = this.props
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        <h1 className='form__title'>{title}</h1>
         {fields.map(field => (
           <Field
             {...field}

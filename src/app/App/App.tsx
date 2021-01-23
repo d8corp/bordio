@@ -11,7 +11,7 @@ import RegistrationForm from 'src/forms/RegistrationForm'
 export function App () {
   return (
     <Modals>
-      <Modal>
+      <Modal title='Create a new account'>
         <RegistrationForm />
       </Modal>
     </Modals>

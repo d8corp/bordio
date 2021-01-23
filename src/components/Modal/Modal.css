@@ -8,6 +8,13 @@
   padding: 22px 5px 43px 5px;
 }
 
+.modal__title {
+  font: normal normal bold 28px/34px Roboto;
+  padding-bottom: 15px;
+  margin: 11px 9px 12px 11px;
+  text-align: center;
+}
+
 
 @media (min-width: 400px) {
   .modal {

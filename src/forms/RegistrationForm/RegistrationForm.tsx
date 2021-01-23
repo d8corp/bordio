@@ -27,7 +27,6 @@ class RegistrationForm extends Component<RegistrationFormProps> {
 
     return (
       <Form
-        title='Create a new account'
         actionName='Sign up'
         fields={fields}
         onChange={this.onChange}

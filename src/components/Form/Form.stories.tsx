@@ -16,13 +16,12 @@ storiesOf('components/Form', module)
   })
   .add('title', () => {
     return (
-      <Form fields={[]} title='Form Title' />
+      <Form fields={[]} />
     )
   })
   .add('login form', () => {
     return (
       <Form
-        title='Login Form'
         actionName='Sign In'
         fields={[
           {
@@ -51,7 +50,6 @@ storiesOf('components/Form', module)
   .add('a login form', () => {
     return (
       <Form
-        title='Login Form'
         actionName='Sign In'
         fields={[
           {
