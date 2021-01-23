@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
-import Form from 'src/components/Form'
+import Form, {FormField} from 'src/components/Form'
 
 // api
 import registration, {RegistrationApi} from 'src/api/registration'
-
-// components
-import {FieldProps} from 'src/components/Field'
 
 // file imports
 import registrationFormFields from './registrationFormFields'
@@ -21,7 +18,7 @@ class RegistrationForm extends Component<RegistrationFormProps> {
     fields: registrationFormFields,
   }
 
-  onChange = (fields: FieldProps[]) => {
+  onChange = (fields: FormField[]) => {
     this.setState({fields})
   }
 

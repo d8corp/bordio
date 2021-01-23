@@ -4,11 +4,14 @@ import React, {Component, ReactEventHandler, ReactNode} from 'react'
 import fieldValidator from 'src/utils/fieldValidator'
 
 // components
-import Field, {FieldProps} from 'src/components/Field'
+import Field, {IFieldStringProps, IFieldBooleanProps} from 'src/components/Field'
 import Button from 'src/components/Button'
 
 // style imports
 import './Form.css'
+
+// types
+export type FormField = (IFieldStringProps & FormFieldMixer<string>) | (IFieldBooleanProps & FormFieldMixer<boolean>)
 
 // interfaces
 export interface FormState {
@@ -16,13 +19,16 @@ export interface FormState {
   loading: boolean
 }
 export interface FormProps {
-  fields: FieldProps[]
+  fields: FormField[]
   children?: never
-  onChange?: (fields: FieldProps[]) => any
-  onSuccess?: (fields: FieldProps[]) => any
+  onChange?: (fields: FormField[]) => any
+  onSuccess?: (fields: FormField[]) => any
   action?: (data: Record<string, any>) => Promise<any>
   title?: ReactNode
   actionName?: ReactNode
+}
+export interface FormFieldMixer <T> {
+  defaultValue?: T
 }
 
 // classes
@@ -63,10 +69,10 @@ class Form extends Component<FormProps, FormState> {
     }
   }
   onChange = (value: boolean | string, name: string) => {
-    const fields: FieldProps[] = []
+    const fields: FormField[] = []
     let disabled = false
 
-    function addField (field: FieldProps) {
+    function addField (field: FormField) {
       fields.push(field)
 
       const invalidRequired = field.required && !field.value
@@ -78,7 +84,7 @@ class Form extends Component<FormProps, FormState> {
 
     for (const field of this.props.fields) {
       if (field.name === name) {
-        const newField: FieldProps = {
+        const newField: FormField = {
           ...field,
           value: value as any,
         }
@@ -100,10 +106,10 @@ class Form extends Component<FormProps, FormState> {
 
   // methods
   clear () {
-    const newFields = []
+    const newFields: FormField[] = []
 
     for (const field of this.props.fields) {
-      newFields.push({...field, value: undefined, error: ''})
+      newFields.push({...field, value: field.defaultValue, error: ''} as FormField)
     }
 
     this.setState({disabled: true})
@@ -119,7 +125,7 @@ class Form extends Component<FormProps, FormState> {
 
     this.updateFields(newFields)
   }
-  updateFields (fields: FieldProps[]) {
+  updateFields (fields: FormField[]) {
     const {onChange} = this.props
     if (onChange) {
       onChange(fields)
