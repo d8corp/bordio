@@ -18,14 +18,14 @@
   background: var(--color-button_background_hover);
 }
 .button:active {
-  box-shadow: inset 5px 5px 6px -3px #0006;
+  box-shadow: 0 0 0 0 transparent, inset 5px 5px 6px -3px #0006;
   background: var(--color-button_background);
 }
 
 .button_invert {
   background: var(--color-button_color);
   color: var(--color-button_background);
-  box-shadow: 0 0 0 2px var(--color-button_background);
+  box-shadow: 0 0 0 2px var(--color-button_background), inset 0 0 0 0 transparent;
 }
 .button_invert:hover,
 .button_invert:focus {

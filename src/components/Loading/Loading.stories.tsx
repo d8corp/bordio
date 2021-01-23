@@ -3,12 +3,20 @@ import {storiesOf} from '@storybook/react'
 
 import 'src/index.css'
 
+import {Modals} from 'src/components/Modals'
 import Loading from '.'
 
 storiesOf('components/Loading', module)
   .add('empty', () => {
     return (
       <Loading />
+    )
+  })
+  .add('invert', () => {
+    return (
+      <Modals>
+        <Loading invert />
+      </Modals>
     )
   })
   .add('autosize', () => {

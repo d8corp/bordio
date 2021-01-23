@@ -53,6 +53,15 @@ storiesOf('components/Button', module)
     return (
       <Modals>
         <Modal title='Hello, World!'>
+          <Button onClick={action('onClick')}>Click me!</Button>
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('in a modal with stretch', () => {
+    return (
+      <Modals>
+        <Modal title='Hello, World!'>
           <Button stretch onClick={action('onClick')}>Click me!</Button>
         </Modal>
       </Modals>
