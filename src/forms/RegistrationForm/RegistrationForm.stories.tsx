@@ -1,5 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
+import {action} from '@storybook/addon-actions'
 
 import 'src/index.css'
 
@@ -11,14 +12,20 @@ import RegistrationForm from '.'
 storiesOf('forms/RegistrationForm', module)
   .add('simple', () => {
     return (
-      <RegistrationForm />
+      <RegistrationForm
+        onSuccess={action('onSuccess')}
+        onError={action('onError')}
+      />
     )
   })
   .add('in a modal', () => {
     return (
       <Modals>
         <Modal>
-          <RegistrationForm />
+          <RegistrationForm
+            onSuccess={action('onSuccess')}
+            onError={action('onError')}
+          />
         </Modal>
       </Modals>
     )
@@ -27,7 +34,10 @@ storiesOf('forms/RegistrationForm', module)
     return (
       <Modals>
         <Modal title='Create a new account'>
-          <RegistrationForm />
+          <RegistrationForm
+            onSuccess={action('onSuccess')}
+            onError={action('onError')}
+          />
         </Modal>
       </Modals>
     )

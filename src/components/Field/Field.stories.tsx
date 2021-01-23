@@ -8,6 +8,7 @@ import {Modal} from 'src/components/Modal'
 import 'src/index.css'
 import './Field.stories.css'
 import emailImage from 'src/icons/email.svg'
+import passwordImage from 'src/icons/password.svg'
 
 import Field from '.'
 
@@ -54,6 +55,21 @@ storiesOf('components/Field/text', module)
           <Field
             name='name'
             stretch
+            placeholder='Enter your name'
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('autoFocus', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='name'
+            stretch
+            autoFocus
             placeholder='Enter your name'
             onChange={action('onChange')}
           />
@@ -110,6 +126,37 @@ storiesOf('components/Field/email', module)
       />
     )
   })
+  .add('in a modal', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='email'
+            placeholder='Email'
+            before={<img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />}
+            stretch
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('autoFocus', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='email'
+            placeholder='Email'
+            autoFocus
+            before={<img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />}
+            stretch
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
 
 storiesOf('components/Field/password', module)
   .add('empty', () => {
@@ -136,6 +183,58 @@ storiesOf('components/Field/password', module)
         value='12345'
         onChange={action('onChange')}
       />
+    )
+  })
+  .add('before', () => {
+    return (
+      <Field
+        name='password'
+        type='password'
+        before={<img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />}
+        onChange={action('onChange')}
+      />
+    )
+  })
+  .add('stretch', () => {
+    return (
+      <Field
+        name='password'
+        type='password'
+        stretch
+        before={<img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />}
+        onChange={action('onChange')}
+      />
+    )
+  })
+  .add('in a modal', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='password'
+            type='password'
+            stretch
+            before={<img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />}
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('autoFocus', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='password'
+            type='password'
+            stretch
+            autoFocus
+            before={<img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />}
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
     )
   })
 
@@ -188,7 +287,9 @@ storiesOf('components/Field/select', module)
       <Field
         name='select'
         type='select'
-        error='Test error'
+        error='You must select your country'
+        placeholder='Select country'
+        values={['Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya']}
         onChange={action('onChange')}
       />
     )
@@ -216,25 +317,59 @@ storiesOf('components/Field/select', module)
       />
     )
   })
+  .add('stretch', () => {
+    return (
+      <Field
+        stretch
+        name='select'
+        type='select'
+        placeholder='Select country'
+        values={['Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya']}
+        onChange={action('onChange')}
+      />
+    )
+  })
+  .add('in a modal', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            stretch
+            name='select'
+            type='select'
+            placeholder='Select country'
+            values={['Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya']}
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('autoFocus', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            stretch
+            autoFocus
+            name='select'
+            type='select'
+            placeholder='Select country'
+            values={['Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya']}
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
 
 storiesOf('components/Field/radiobox', module)
   .add('values', () => {
     return (
       <Field
-        name='radiobox'
+        name='gender'
         type='radiobox'
-        values={['test1', 'test2']}
-        onChange={action('onChange')}
-      />
-    )
-  })
-  .add('selected', () => {
-    return (
-      <Field
-        name='radiobox'
-        type='radiobox'
-        value='test1'
-        values={['test1', 'test2']}
+        values={['Male', 'Female']}
         onChange={action('onChange')}
       />
     )
@@ -242,11 +377,21 @@ storiesOf('components/Field/radiobox', module)
   .add('error', () => {
     return (
       <Field
-        name='radiobox'
+        name='gender'
         type='radiobox'
-        value='test1'
-        values={['test1', 'test2']}
-        error='error'
+        values={['Male', 'Female']}
+        onChange={action('onChange')}
+        error='You must select the gender'
+      />
+    )
+  })
+  .add('selected', () => {
+    return (
+      <Field
+        name='gender'
+        type='radiobox'
+        value='Male'
+        values={['Male', 'Female']}
         onChange={action('onChange')}
       />
     )
@@ -254,13 +399,68 @@ storiesOf('components/Field/radiobox', module)
   .add('override', () => {
     return (
       <Field
-        name='radiobox'
+        name='gender'
         type='radiobox'
-        value='test1'
-        values={['test1', 'test2']}
-        override={e => e.toUpperCase()}
+        value='MALE'
+        values={['MALE', 'FEMALE']}
+        override={val => val === 'MALE' ? 'Male' : 'Female'}
         onChange={action('onChange')}
       />
+    )
+  })
+  .add('in a modal', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='gender'
+            type='radiobox'
+            value='MALE'
+            values={['MALE', 'FEMALE']}
+            override={val => val === 'MALE' ? 'Male' : 'Female'}
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('autoFocus', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='gender'
+            type='radiobox'
+            value='MALE'
+            values={['MALE', 'FEMALE']}
+            override={val => val === 'MALE' ? 'Male' : 'Female'}
+            autoFocus
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('several boxes', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='gender'
+            type='radiobox'
+            value='MALE'
+            values={['MALE', 'FEMALE']}
+            override={val => val === 'MALE' ? 'Male' : 'Female'}
+            onChange={action('onChange')}
+          />
+          <Field
+            name='size'
+            type='radiobox'
+            values={['M', 'L', 'XL']}
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
     )
   })
 
@@ -304,5 +504,20 @@ storiesOf('components/Field/checkbox', module)
         placeholder='Accept terms and conditions'
         onChange={action('onChange')}
       />
+    )
+  })
+  .add('in a modal', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='checkbox'
+            type='checkbox'
+            error='You must accept the policies'
+            placeholder='Accept terms and conditions'
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
     )
   })

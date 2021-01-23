@@ -78,21 +78,6 @@ storiesOf('components/Form', module)
       </Modals>
     )
   })
-  .add('action catch', () => {
-    return (
-      <Modals>
-        <Modal title='Login'>
-          <Form
-            actionName='Sign In'
-            fields={signInFields}
-            action={async () => {
-              throw Error('API does not work')
-            }}
-          />
-        </Modal>
-      </Modals>
-    )
-  })
   .add('loading', () => {
     return (
       <Modals>
@@ -101,6 +86,23 @@ storiesOf('components/Form', module)
             actionName='Sign In'
             fields={signInFields}
             action={() => new Promise(resolve => setTimeout(resolve, 1000))}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('action catch', () => {
+    return (
+      <Modals>
+        <Modal title='Login'>
+          <Form
+            actionName='Sign In'
+            fields={[
+              {name: 'age'}
+            ]}
+            action={async () => {
+              throw Error('API does not work')
+            }}
           />
         </Modal>
       </Modals>

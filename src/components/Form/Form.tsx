@@ -147,8 +147,8 @@ class Form extends Component<FormProps, FormState> {
         {fields.map((field, id) => (
           <Field
             stretch
-            {...field}
             autoFocus={autoFocus && !id}
+            {...field}
             value={values[id] as any}
             error={errors[id]}
             key={field.name}
