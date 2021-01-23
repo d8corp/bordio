@@ -2,8 +2,8 @@ import React from 'react'
 import Link from 'src/components/Link'
 import {FormField} from 'src/components/Form'
 
-import passwordImage from './password.svg'
-import emailImage from './email.svg'
+import passwordImage from 'src/icons/password.svg'
+import emailImage from 'src/icons/email.svg'
 
 import './RegistrationFormFields.css'
 
