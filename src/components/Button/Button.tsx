@@ -19,18 +19,20 @@ export interface ButtonProps {
   disabled?: boolean
   loading?: boolean
   onClick?: IOnButtonClick
+  invert?: boolean
 }
 
 // classes
 export class Button extends PureComponent<ButtonProps> {
   get className () {
-    const {stretch, disabled, className} = this.props
+    const {stretch, disabled, className, invert} = this.props
 
     return classes(
       className,
       'button',
       stretch && 'button_stretch',
       disabled && 'button_disabled',
+      invert && 'button_invert',
     )
   }
 
@@ -43,11 +45,11 @@ export class Button extends PureComponent<ButtonProps> {
   }
 
   render () {
-    const {children, loading} = this.props
+    const {children, loading, invert} = this.props
 
     return (
       <button disabled={loading} onClick={this.onClick} className={this.className}>
-        {loading ? <Loading invert /> : children}
+        {loading ? <Loading invert={!invert} /> : children}
       </button>
     )
   }

@@ -7,7 +7,8 @@ html, body {
 }
 
 body {
-  color: #222;
+  /* a fix for storybook */
+  color: #222 !important;
   font-family: Roboto, sans-serif;
   text-rendering: geometricPrecision;
 }
@@ -48,6 +49,7 @@ body {
   --color-loading: var(--color-accent-light);
   --color-loading_invert: var(--color-light);
 
+  --color-modals_color: var(--color-light);
   --color-modals_background: var(--color-dark-accent);
   --color-modal_color: var(--color-dark);
   --color-modal_background: var(--color-light);

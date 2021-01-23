@@ -12,12 +12,7 @@
   overscroll-behavior: none;
   overflow: auto;
   transition: opacity 0.3s;
-}
-
-/* The fix to prevent bottom padding ignore */
-.modals:after {
-  content: '';
-  height: 15px;
+  color: var(--color-modals_color);
 }
 
 .modals:empty {
