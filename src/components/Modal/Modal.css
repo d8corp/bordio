@@ -9,6 +9,10 @@
   text-align: center;
 }
 
+.modal + .modal {
+  display: none;
+}
+
 .modal__title {
   font: normal normal bold 28px/34px Roboto;
   padding-bottom: 15px;

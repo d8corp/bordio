@@ -99,6 +99,7 @@
   max-height: 277px;
   overflow: auto;
   transition: all 0.3s;
+  text-align: left;
 }
 .field__input:focus ~ .field__menu {
   display: block;

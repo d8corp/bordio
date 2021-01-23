@@ -11,37 +11,44 @@ import Modal from 'src/components/Modal'
 
 import Form from '.'
 
+const signInFields = [
+  {
+    name: 'email',
+    type: 'email',
+    before: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
+    placeholder: 'Email',
+    required: true,
+    pattern: '^(([^<>()[\\]\\\\.,;:\\s@"]+(\\.[^<>()[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
+    patternError: 'Please enter a valid email address',
+  },
+  {
+    name: 'password',
+    type: 'password',
+    before: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
+    placeholder: 'Password',
+    required: true,
+    pattern: '.{6,}',
+    patternError: 'Password must contain at least 6 symbols',
+  }
+]
+
+const formAction = async (data: any) => action('action')(data)
+
 storiesOf('components/Form', module)
   .add('empty form', () => {
     return (
-      <Form fields={[]} onChange={action('onChange')} />
+      <Form
+        fields={[]}
+        action={formAction}
+      />
     )
   })
   .add('login form', () => {
     return (
       <Form
         actionName='Sign In'
-        fields={[
-          {
-            name: 'email',
-            type: 'email',
-            before: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
-            placeholder: 'Email',
-            required: true,
-            pattern: '^(([^<>()[\\]\\\\.,;:\\s@"]+(\\.[^<>()[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
-            patternError: 'Please enter a valid email address',
-          },
-          {
-            name: 'password',
-            type: 'password',
-            before: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
-            placeholder: 'Password',
-            required: true,
-            pattern: '.{6,}',
-            patternError: 'Password must contain at least 6 symbols',
-          }
-        ]}
-        onChange={action('onChange')}
+        fields={signInFields}
+        action={formAction}
       />
     )
   })
@@ -51,25 +58,8 @@ storiesOf('components/Form', module)
         <Modal>
           <Form
             actionName='Sign In'
-            fields={[
-              {
-                name: 'email',
-                type: 'email',
-                before: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
-                placeholder: 'Email',
-                pattern: '^(([^<>()[\\]\\\\.,;:\\s@"]+(\\.[^<>()[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
-                patternError: 'Please enter a valid email address',
-              },
-              {
-                name: 'password',
-                type: 'password',
-                before: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
-                placeholder: 'Password',
-                pattern: '.{6,}',
-                patternError: 'Password must contain at least 6 symbols',
-              }
-            ]}
-            onChange={action('onChange')}
+            fields={signInFields}
+            action={formAction}
           />
         </Modal>
       </Modals>
@@ -81,49 +71,36 @@ storiesOf('components/Form', module)
         <Modal title='Login'>
           <Form
             actionName='Sign In'
-            fields={[
-              {
-                name: 'email',
-                type: 'email',
-                before: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
-                placeholder: 'Email',
-              },
-              {
-                name: 'password',
-                type: 'password',
-                before: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
-                placeholder: 'Password',
-              }
-            ]}
-            onChange={action('onChange')}
+            fields={signInFields}
+            action={formAction}
           />
         </Modal>
       </Modals>
     )
   })
-  .add('with required', () => {
+  .add('action catch', () => {
     return (
       <Modals>
         <Modal title='Login'>
           <Form
             actionName='Sign In'
-            fields={[
-              {
-                name: 'email',
-                type: 'email',
-                required: true,
-                before: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
-                placeholder: 'Email',
-              },
-              {
-                name: 'password',
-                type: 'password',
-                required: true,
-                before: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
-                placeholder: 'Password',
-              }
-            ]}
-            onChange={action('onChange')}
+            fields={signInFields}
+            action={async () => {
+              throw Error('API does not work')
+            }}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
+  .add('loading', () => {
+    return (
+      <Modals>
+        <Modal title='Login'>
+          <Form
+            actionName='Sign In'
+            fields={signInFields}
+            action={() => new Promise(resolve => setTimeout(resolve, 1000))}
           />
         </Modal>
       </Modals>

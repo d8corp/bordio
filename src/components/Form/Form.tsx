@@ -17,26 +17,42 @@ export type FormField = (IFieldStringProps & FormFieldMixer<string>) | (IFieldBo
 export interface FormProps {
   fields: FormField[]
   children?: never
-  onChange?: (fields: FormField[]) => any
   action?: (data: Record<string, any>) => Promise<any>
   actionName?: ReactNode
+  autoFocus?: boolean
+}
+export interface FormState {
+  values: any[],
+  loading: boolean,
+  errors: any[],
+  disabled: boolean,
 }
 export interface FormFieldMixer <T> {
   defaultValue?: T
 }
 
 // classes
-class Form extends Component<FormProps> {
-  state = {
-    disabled: this.disabled,
-    loading: false,
+class Form extends Component<FormProps, FormState> {
+  constructor (props: any, context: any) {
+    super(props, context)
+
+    const values = this.props.fields.map(field => field.defaultValue)
+    const disabled = this.isDisabled(values)
+
+    this.state = {
+      values,
+      loading: false,
+      errors: [],
+      disabled,
+    }
   }
 
   // events
   onSubmit: ReactEventHandler = e => {
     e.preventDefault()
 
-    const {disabled, loading} = this.state
+    const {disabled, loading, values} = this.state
+    const {action, fields} = this.props
 
     if (loading) {
       return
@@ -44,107 +60,97 @@ class Form extends Component<FormProps> {
 
     this.validation()
 
-    if (!disabled) {
+    if (!disabled && action) {
       const data: Record<string, any> = {}
 
-      for (const field of this.props.fields) {
-        data[field.name] = field.value
+      for (let i = 0; i < fields.length; i++) {
+        data[fields[i].name] = values[i]
       }
 
-      const {action} = this.props
+      action(data).then(() => this.clear(), () => {}).finally(() => {
+        this.setState({loading: false})
+      })
 
-      if (action) {
-        action(data).then(() => this.clear(), error => alert(error.message)).finally(() => {
-          this.setState({loading: false})
-        })
-
-        this.setState({loading: true})
-      }
+      this.setState({loading: true})
     }
   }
   onChange = (value: boolean | string, name: string) => {
-    const fields: FormField[] = []
+    const {errors, values} = this.state
+    const {fields} = this.props
+    const newErrors: string[] = []
+    const newValues: any[] = []
     let disabled = false
 
-    function addField (field: FormField) {
-      fields.push(field)
 
-      const invalidRequired = field.required && !field.value
+    for (let i = 0; i < fields.length; i++) {
+      const field = fields[i]
+      let error
 
-      if (invalidRequired || field.error) {
+      if (field.name === name) {
+        error = fieldValidator(value, field)
+        newErrors.push(error)
+        newValues.push(value)
+      } else {
+        error = fieldValidator(values[i], field)
+        newErrors.push(errors[i])
+        newValues.push(values[i])
+      }
+
+      if (error) {
         disabled = true
       }
     }
 
-    for (const field of this.props.fields) {
-      if (field.name === name) {
-        const newField: FormField = {
-          ...field,
-          value: value as any,
-        }
-
-        newField.error = fieldValidator(newField)
-
-        addField(newField)
-      } else {
-        addField(field)
-      }
-    }
-
-    if (this.state.disabled !== disabled) {
-      this.setState({disabled})
-    }
-
-    this.updateFields(fields)
+    this.setState({disabled, values: newValues, errors: newErrors})
   }
 
-  get disabled () {
-    for (const field of this.props.fields) {
-      if (fieldValidator(field)) {
+
+  // methods
+  clear () {
+    const {fields} = this.props
+    const values = []
+
+    for (let i = 0; i < fields.length; i++) {
+      values.push(fields[i].defaultValue)
+    }
+
+    this.setState({disabled: this.isDisabled(values), errors: [], values})
+  }
+  validation () {
+    const {fields} = this.props
+    const {values} = this.state
+    const errors = []
+
+    for (let i = 0; i < fields.length; i++) {
+      errors.push(fieldValidator(values[i], fields[i]))
+    }
+
+    this.setState({errors})
+  }
+  isDisabled (values: any[]): boolean {
+    const {fields} = this.props
+
+    for (let i = 0; i < fields.length; i++) {
+      if (fieldValidator(values[i], fields[i])) {
         return true
       }
     }
     return false
   }
 
-  // methods
-  clear () {
-    const newFields: FormField[] = []
-
-    for (const field of this.props.fields) {
-      newFields.push({...field, value: field.defaultValue, error: ''} as FormField)
-    }
-
-    this.setState({disabled: true})
-    this.updateFields(newFields)
-  }
-  validation () {
-    const newFields = []
-    const {fields} = this.props
-
-    for (const field of fields) {
-      newFields.push({...field, error: fieldValidator(field)})
-    }
-
-    this.updateFields(newFields)
-  }
-  updateFields (fields: FormField[]) {
-    const {onChange} = this.props
-    if (onChange) {
-      onChange(fields)
-    }
-  }
-
   render () {
-    const {disabled, loading} = this.state
-    const {fields, actionName = 'Confirm'} = this.props
+    const {disabled, loading, errors, values} = this.state
+    const {fields, actionName = 'Confirm', autoFocus} = this.props
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {fields.map(field => (
+        {fields.map((field, id) => (
           <Field
             stretch
             {...field}
+            autoFocus={autoFocus && !id}
+            value={values[id] as any}
+            error={errors[id]}
             key={field.name}
             onChange={this.onChange}
           />

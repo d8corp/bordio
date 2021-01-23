@@ -9,9 +9,8 @@ export interface IValidatorField {
   valuesError?: string
 }
 
-export default function ({
+export default function (value: any, {
   name,
-  value,
   values,
   required,
   pattern,

@@ -2,8 +2,12 @@ import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
+import {Modals} from 'src/components/Modals'
+import {Modal} from 'src/components/Modal'
+
 import 'src/index.css'
 import './Field.stories.css'
+import emailImage from 'src/icons/email.svg'
 
 import Field from '.'
 
@@ -33,6 +37,30 @@ storiesOf('components/Field/text', module)
       />
     )
   })
+  .add('stretch', () => {
+    return (
+      <Field
+        name='name'
+        stretch
+        placeholder='Enter your name'
+        onChange={action('onChange')}
+      />
+    )
+  })
+  .add('in a modal', () => {
+    return (
+      <Modals>
+        <Modal>
+          <Field
+            name='name'
+            stretch
+            placeholder='Enter your name'
+            onChange={action('onChange')}
+          />
+        </Modal>
+      </Modals>
+    )
+  })
 
 storiesOf('components/Field/email', module)
   .add('empty', () => {
@@ -57,6 +85,27 @@ storiesOf('components/Field/email', module)
         type='email'
         value='123'
         error='Invalid email'
+        onChange={action('onChange')}
+      />
+    )
+  })
+  .add('before', () => {
+    return (
+      <Field
+        name='email'
+        placeholder='Email'
+        before={<img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />}
+        onChange={action('onChange')}
+      />
+    )
+  })
+  .add('stretch', () => {
+    return (
+      <Field
+        name='email'
+        placeholder='Email'
+        before={<img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />}
+        stretch
         onChange={action('onChange')}
       />
     )

@@ -20,6 +20,7 @@ export interface ButtonProps {
   loading?: boolean
   onClick?: IOnButtonClick
   invert?: boolean
+  autoFocus?: boolean
 }
 
 // classes
@@ -46,10 +47,14 @@ export class Button extends PureComponent<ButtonProps> {
   }
 
   render () {
-    const {children, loading, invert} = this.props
+    const {children, loading, invert, autoFocus} = this.props
 
     return (
-      <button disabled={loading} onClick={this.onClick} className={this.className}>
+      <button
+        autoFocus={autoFocus}
+        disabled={loading}
+        onClick={this.onClick}
+        className={this.className}>
         {loading ? <Loading className='button__loading' invert={!invert} /> : null}
         <span className='button__content'>
           {children}

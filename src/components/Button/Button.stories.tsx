@@ -67,3 +67,7 @@ storiesOf('components/Button', module)
       </Modals>
     )
   })
+
+export default {
+  title: 'Test'
+}

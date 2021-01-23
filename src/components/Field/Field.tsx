@@ -29,6 +29,7 @@ export interface IFieldPros extends IValidatorField {
   override?: (value: string) => ReactNode
   before?: ReactNode
   stretch?: boolean
+  autoFocus?: boolean
 }
 export interface IFieldStringProps extends IFieldPros {
   type?: TFieldStringName
@@ -103,12 +104,13 @@ export class Field extends PureComponent <FieldProps> {
 
   // elements by type
   get select (): ReactNode {
-    const {name, placeholder, values, override, value} = this.props as IFieldStringProps
+    const {name, placeholder, values, override, value, autoFocus} = this.props as IFieldStringProps
     const ul = createRef<HTMLUListElement>()
 
     return (
       <label className={this.className}>
         <select
+          autoFocus={autoFocus}
           onKeyDown={e => this.onSelectKeyDown(e, ul)}
           value={value}
           className='field__input field__input_select'
@@ -140,13 +142,14 @@ export class Field extends PureComponent <FieldProps> {
     )
   }
   get radiobox (): ReactNode {
-    const {values, value, override} = this.props as IFieldStringProps
+    const {values, value, override, autoFocus} = this.props as IFieldStringProps
 
     return (
       <div className='field__radiobox'>
         {values?.map(val => (
           <label className='field__radiobox-label' key={val}>
             <input
+              autoFocus={autoFocus}
               className='field__radiobox-input'
               type='radio'
               checked={value === val}
@@ -163,12 +166,13 @@ export class Field extends PureComponent <FieldProps> {
     )
   }
   get checkbox (): ReactNode {
-    const {value = false, placeholder} = this.props as IFieldBooleanProps
+    const {value = false, placeholder, autoFocus} = this.props as IFieldBooleanProps
 
     return (
       <div className='field__checkbox'>
         <label className='field__checkbox-label'>
           <input
+            autoFocus={autoFocus}
             className='field__checkbox-input'
             type='checkbox'
             checked={value}
@@ -184,12 +188,13 @@ export class Field extends PureComponent <FieldProps> {
     )
   }
   get other (): ReactNode {
-    const {placeholder, name, type, before, value = ''} = this.props as IFieldStringProps
+    const {autoFocus, placeholder, name, type, before, value = ''} = this.props as IFieldStringProps
 
     return (
       <label className={this.className}>
         {before}
         <input
+          autoFocus={autoFocus}
           onChange={e => this.onChange(e)}
           value={value}
           placeholder={placeholder}
