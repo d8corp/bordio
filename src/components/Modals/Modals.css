@@ -1,0 +1,26 @@
+.modals {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  background: var(--color-modals_background);
+  overscroll-behavior: none;
+  overflow: auto;
+  transition: opacity 0.3s;
+}
+
+/* The fix to prevent bottom padding ignore */
+.modals:after {
+  content: '';
+  height: 15px;
+}
+
+.modals:empty {
+  pointer-events: none;
+  opacity: 0;
+}

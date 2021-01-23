@@ -1,0 +1,16 @@
+.modal {
+  width: 100vw;
+  max-width: 400px;
+  background: var(--color-modal_background);
+  color: var(--color-modal_color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 22px 5px 43px 5px;
+}
+
+
+@media (min-width: 400px) {
+  .modal {
+    padding: 22px 18px 43px 19px;
+  }
+}

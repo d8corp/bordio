@@ -1,6 +1,8 @@
 import React from 'react'
 
 // components
+import Modals from 'src/components/Modals'
+import Modal from 'src/components/Modal'
 import RegistrationForm from 'src/forms/RegistrationForm'
 
 /**
@@ -8,9 +10,11 @@ import RegistrationForm from 'src/forms/RegistrationForm'
  * */
 export function App () {
   return (
-    <>
-      <RegistrationForm />
-    </>
+    <Modals>
+      <Modal>
+        <RegistrationForm />
+      </Modal>
+    </Modals>
   )
 }
 

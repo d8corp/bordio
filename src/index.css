@@ -7,17 +7,9 @@ html, body {
 }
 
 body {
-  background: #102250;
   color: #222;
   font-family: Roboto, sans-serif;
   text-rendering: geometricPrecision;
-}
-
-#root {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 :root {
@@ -26,13 +18,14 @@ body {
   --color-gray: #a2a2a2;
   --color-gray-light: #f5f8fa;
   --color-dark: #222;
+  --color-dark-accent: #102250;
   --color-accent: #0094ff;
   --color-accent-light: #2aa3ff;
   --color-error: #e82828;
 
   /* elements */
-  --color-registration-form_background: var(--color-light);
-  --color-registration-form_color: var(--color-dark);
+  --color-form_background: var(--color-light);
+  --color-form_color: var(--color-dark);
 
   --color-button_background: var(--color-accent);
   --color-button_background-disabled: var(--color-gray);
@@ -54,4 +47,8 @@ body {
 
   --color-loading: var(--color-accent-light);
   --color-loading_invert: var(--color-light);
+
+  --color-modals_background: var(--color-dark-accent);
+  --color-modal_color: var(--color-dark);
+  --color-modal_background: var(--color-light);
 }

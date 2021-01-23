@@ -1,12 +1,6 @@
 .form {
-  background: var(--color-registration-form_background);
-  max-width: 400px;
-  width: 100%;
-  border-radius: 8px;
-  box-sizing: border-box;
-  padding: 22px 5px 43px 5px;
-  margin: 15px;
-  color: var(--color-registration-form_color);
+  background: var(--color-form_background);
+  color: var(--color-form_color);
 }
 
 .form__icon_password {
@@ -21,11 +15,4 @@
   padding-bottom: 15px;
   margin: 11px 9px 12px 11px;
   text-align: center;
-}
-
-
-@media (min-width: 400px) {
-  .form {
-    padding: 22px 18px 43px 19px;
-  }
 }
