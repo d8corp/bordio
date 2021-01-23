@@ -22,7 +22,6 @@ export interface FormProps {
   fields: FormField[]
   children?: never
   onChange?: (fields: FormField[]) => any
-  onSuccess?: (fields: FormField[]) => any
   action?: (data: Record<string, any>) => Promise<any>
   title?: ReactNode
   actionName?: ReactNode
