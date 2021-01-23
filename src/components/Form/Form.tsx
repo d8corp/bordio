@@ -32,7 +32,7 @@ export interface FormFieldMixer <T> {
 // classes
 class Form extends Component<FormProps, FormState> {
   state = {
-    disabled: true,
+    disabled: this.disabled,
     loading: false,
   }
 
@@ -100,6 +100,15 @@ class Form extends Component<FormProps, FormState> {
     }
 
     this.updateFields(fields)
+  }
+
+  get disabled () {
+    for (const field of this.props.fields) {
+      if (fieldValidator(field)) {
+        return true
+      }
+    }
+    return false
   }
 
   // methods
