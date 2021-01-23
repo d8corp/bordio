@@ -1,4 +1,5 @@
 .button {
+  position: relative;
   background: var(--color-button_background);
   color: var(--color-button_color);
   font: normal normal normal 18px/22px Roboto;
@@ -40,4 +41,19 @@
 
 .button_stretch {
   width: calc(100% - 20px);
+}
+
+.button_loading > .button__content {
+  color: transparent;
+}
+
+.button__loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -0.5em 0 0 -0.5em;
+}
+.button_invert.button_loading:hover > .button__loading > .loading__path,
+.button_invert.button_loading:focus > .button__loading > .loading__path {
+  stroke: var(--color-loading_invert);
 }

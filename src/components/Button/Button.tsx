@@ -25,11 +25,12 @@ export interface ButtonProps {
 // classes
 export class Button extends PureComponent<ButtonProps> {
   get className () {
-    const {stretch, disabled, className, invert} = this.props
+    const {stretch, disabled, className, invert, loading} = this.props
 
     return classes(
       className,
       'button',
+      loading && 'button_loading',
       stretch && 'button_stretch',
       disabled && 'button_disabled',
       invert && 'button_invert',
@@ -49,7 +50,10 @@ export class Button extends PureComponent<ButtonProps> {
 
     return (
       <button disabled={loading} onClick={this.onClick} className={this.className}>
-        {loading ? <Loading invert={!invert} /> : children}
+        {loading ? <Loading className='button__loading' invert={!invert} /> : null}
+        <span className='button__content'>
+          {children}
+        </span>
       </button>
     )
   }
