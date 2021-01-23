@@ -120,7 +120,7 @@ export class Field extends PureComponent <FieldProps> {
         <ul ref={ul} className='field__menu'>
           {values?.map(val => (
             <li
-              className={classes('field__menu-item', val === value && 'field__menu-item_select')}
+              className={classes('field__menu-item', val === value && 'field__menu-item_selected')}
               value={val}
               key={val}
               onMouseDown={() => this.setValue(val)}>

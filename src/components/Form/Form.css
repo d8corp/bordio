@@ -1,4 +1,4 @@
-.registration-form {
+.form {
   background: var(--color-registration-form_background);
   max-width: 400px;
   width: 100%;
@@ -9,14 +9,14 @@
   color: var(--color-registration-form_color);
 }
 
-.registration-form__icon_password {
+.form__icon_password {
   margin: 0 17px 5px 1px;
 }
-.registration-form__icon_email {
+.form__icon_email {
   margin: 1px 14px 0 0;
 }
 
-.registration-form__title {
+.form__title {
   font: normal normal bold 28px/34px Roboto;
   padding-bottom: 15px;
   margin: 11px 9px 12px 11px;
@@ -25,7 +25,7 @@
 
 
 @media (min-width: 400px) {
-  .registration-form {
+  .form {
     padding: 22px 18px 43px 19px;
   }
 }

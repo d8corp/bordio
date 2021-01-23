@@ -2,6 +2,11 @@ import React from 'react'
 import Link from 'src/components/Link'
 import {FieldProps} from 'src/components/Field'
 
+import passwordImage from './password.svg'
+import emailImage from './email.svg'
+
+import './RegistrationFormFields.css'
+
 export const fields: FieldProps[] = [
   {
     name: 'name',
@@ -15,6 +20,7 @@ export const fields: FieldProps[] = [
   {
     name: 'email',
     type: 'email',
+    before: <img className='registration-form__icon registration-form__icon_email' src={emailImage} alt='email' />,
     placeholder: 'Email',
     value: undefined,
     error: '',
@@ -25,6 +31,7 @@ export const fields: FieldProps[] = [
   {
     name: 'password',
     type: 'password',
+    before: <img className='registration-form__icon registration-form__icon_password' src={passwordImage} alt='password' />,
     placeholder: 'Password',
     value: undefined,
     error: '',

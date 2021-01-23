@@ -4,10 +4,18 @@ import {gql} from '@apollo/client'
 import api from 'src/api'
 
 // types
-type TGender = 'MALE' | 'FEMALE'
+export type TGender = 'MALE' | 'FEMALE'
+
+export interface RegistrationApi {
+  name: string
+  email: string
+  password: string
+  country: string
+  gender: TGender
+}
 
 // functions
-export function registration (name: string, email: string, password: string, country: string, gender: TGender) {
+export function registration ({name, email, password, country, gender}: RegistrationApi) {
   return api.mutate({
     mutation: gql`
       mutation {
