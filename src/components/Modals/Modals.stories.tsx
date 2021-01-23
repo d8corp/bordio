@@ -26,7 +26,7 @@ storiesOf('components/Modals', module)
   .add('with Modal', () => {
     return (
       <Modals>
-        <Modal>The Modal text</Modal>
+        <Modal title='Information'>Some information</Modal>
       </Modals>
     )
   })

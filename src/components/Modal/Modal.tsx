@@ -3,7 +3,7 @@ import React, {Component, ReactNode} from 'react'
 import './Modal.css'
 
 export interface ModalsProps {
-  children: ReactNode
+  children?: ReactNode
   title?: ReactNode
 }
 

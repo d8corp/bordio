@@ -28,6 +28,7 @@ export interface IFieldPros extends IValidatorField {
   error?: string
   override?: (value: string) => ReactNode
   before?: ReactNode
+  stretch?: boolean
 }
 export interface IFieldStringProps extends IFieldPros {
   type?: TFieldStringName
@@ -95,13 +96,18 @@ export class Field extends PureComponent <FieldProps> {
     ) : null
   }
 
+  get className () {
+    const {stretch} = this.props as IFieldStringProps
+    return classes('field', stretch && 'field_stretch')
+  }
+
   // elements by type
   get select (): ReactNode {
     const {name, placeholder, values, override, value} = this.props as IFieldStringProps
     const ul = createRef<HTMLUListElement>()
 
     return (
-      <label className='field'>
+      <label className={this.className}>
         <select
           onKeyDown={e => this.onSelectKeyDown(e, ul)}
           value={value}
@@ -181,7 +187,7 @@ export class Field extends PureComponent <FieldProps> {
     const {placeholder, name, type, before, value = ''} = this.props as IFieldStringProps
 
     return (
-      <label className='field'>
+      <label className={this.className}>
         {before}
         <input
           onChange={e => this.onChange(e)}

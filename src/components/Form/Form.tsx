@@ -138,6 +138,7 @@ class Form extends Component<FormProps, FormState> {
       <form className='form' onSubmit={this.onSubmit}>
         {fields.map(field => (
           <Field
+            stretch
             {...field}
             key={field.name}
             onChange={this.onChange}
