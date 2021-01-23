@@ -14,10 +14,6 @@ import './Form.css'
 export type FormField = (IFieldStringProps & FormFieldMixer<string>) | (IFieldBooleanProps & FormFieldMixer<boolean>)
 
 // interfaces
-export interface FormState {
-  disabled: boolean
-  loading: boolean
-}
 export interface FormProps {
   fields: FormField[]
   children?: never
@@ -30,7 +26,7 @@ export interface FormFieldMixer <T> {
 }
 
 // classes
-class Form extends Component<FormProps, FormState> {
+class Form extends Component<FormProps> {
   state = {
     disabled: this.disabled,
     loading: false,
