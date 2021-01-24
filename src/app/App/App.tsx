@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, ReactNode} from 'react'
 
 // components
 import Modals from 'src/components/Modals'
@@ -6,10 +6,19 @@ import Modal from 'src/components/Modal'
 import Button from 'src/components/Button'
 import RegistrationForm from 'src/forms/RegistrationForm'
 
+// interfaces
+export interface AppProps {
+  children?: never
+}
+export interface AppState {
+  title: ReactNode
+  message: ReactNode
+}
+
 /**
- * @description Main application component
+ * @description - main application component
  * */
-export class App extends Component {
+export class App extends Component <AppProps, AppState> {
   state = {
     title: '',
     message: '',
@@ -42,7 +51,9 @@ export class App extends Component {
         <Button
           autoFocus
           stretch
-          onClick={() => this.clear()}>Ok</Button>
+          onClick={() => this.clear()}>
+          Ok
+        </Button>
       </Modal>
     ) : null
   }
