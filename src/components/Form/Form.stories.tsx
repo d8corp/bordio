@@ -103,7 +103,7 @@ storiesOf('components/Form', module)
                 stretch: false,
                 type: 'radiobox',
                 values: ['No, really bad', 'Yes, looks good'],
-                required: true
+                required: true,
               }
             ]}
             action={formAction}

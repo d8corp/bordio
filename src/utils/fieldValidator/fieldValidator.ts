@@ -26,8 +26,8 @@ export function fieldValidator <V, R> (value: V, {
   requiredError = `You must ${values ? 'select' : 'enter'} the ${name}` as any,
   valuesError = `You must select from ${values?.join(', ')}`,
 }: IValidatorOptions<V, R>): string {
-  if (!value) {
-    return required ? requiredError : ''
+  if (!value && required) {
+    return requiredError
   }
 
   if (pattern && !new RegExp(pattern).test(value as any)) {
