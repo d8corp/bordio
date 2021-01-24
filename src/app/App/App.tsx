@@ -68,6 +68,7 @@ export class App extends Component <AppProps, AppState> {
         {this.message}
         <Modal title='Create a new account'>
           <RegistrationForm
+            autoFocus
             onSuccess={this.onSuccess}
             onError={this.onError}
           />

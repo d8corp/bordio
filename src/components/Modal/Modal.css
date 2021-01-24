@@ -1,8 +1,19 @@
+@keyframes modal {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50%) scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+  }
+}
+
 .modal {
   position: absolute;
+  animation: modal 0.3s;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
   width: 100vw;
   max-width: 420px;
   max-height: 100vh;
@@ -17,10 +28,12 @@
   box-sizing: border-box;
   padding: 22px 5px 43px 5px;
   text-align: center;
+  transition: opacity 0.3s;
+  transform: translateX(-50%) translateY(-50%) scale(1);
 }
 
 .modal + .modal {
-  display: none;
+  opacity: 0;
 }
 
 .modal__title {

@@ -14,15 +14,17 @@ export interface RegistrationFormProps {
   children?: never
   onSuccess?: (id: string) => any
   onError?: (message: string) => any
+  autoFocus?: boolean
 }
 
 // components
 class RegistrationForm extends Component<RegistrationFormProps> {
   render () {
-    const {onError, onSuccess} = this.props
+    const {onError, onSuccess, autoFocus} = this.props
 
     return (
       <Form
+        autoFocus={autoFocus}
         actionName='Sign up'
         fields={registrationFormFields}
         action={data => registration(data as RegistrationApi).then(result => {

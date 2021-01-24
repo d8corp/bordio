@@ -1,4 +1,4 @@
-@keyframes show-error {
+@keyframes field__error {
   from {
     opacity: 0;
     transform: translateY(5px);
@@ -103,7 +103,7 @@
 }
 .field__input:focus ~ .field__menu {
   display: block;
-  animation: show-error 0.3s;
+  animation: field__error 0.3s;
 }
 
 .field__menu-item {
@@ -133,7 +133,7 @@
   left: 18px;
   color: var(--color-field_error);
   font: normal normal normal 10px/13px Roboto;
-  animation: show-error 0.3s;
+  animation: field__error 0.3s;
   transition: all 0.3s;
   opacity: 1;
   transform: translateY(0);
