@@ -24,30 +24,34 @@ export class App extends Component <AppProps, AppState> {
     message: '',
   }
 
-  onSuccess = (id: string) => {
+  // events
+  onSuccess = (id: string): void => {
     this.setState({
       title: 'Success',
       message: <>Registration was successful, your id: <br /> <b>{id}</b></>,
     })
   }
-
-  onError = (message: string) => {
+  onError = (message: string): void => {
     this.setState({
       title: 'Error',
       message,
     })
   }
 
-  clear () {
+  // methods
+  clear (): void {
     this.setState({title: '', message: ''})
   }
 
-  get message () {
+  // elements
+  get message (): ReactNode | null {
     const {title, message} = this.state
 
     return message ? (
       <Modal title={title}>
-        {message}
+        <p>
+          {message}
+        </p>
         <Button
           autoFocus
           stretch

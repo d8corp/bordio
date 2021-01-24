@@ -1,7 +1,4 @@
 .modals {
-  display: grid;
-  justify-content: center;
-  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +7,6 @@
   padding: 15px;
   background: var(--color-modals_background);
   overscroll-behavior: none;
-  overflow: auto;
   transition: opacity 0.3s;
   color: var(--color-modals_color);
 }

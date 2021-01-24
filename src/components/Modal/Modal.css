@@ -1,9 +1,19 @@
 .modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
   width: 100vw;
-  max-width: 400px;
+  max-width: 420px;
+  max-height: 100vh;
+  /*noinspection CssInvalidPropertyValue*/
+  max-height: -webkit-fill-available;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 10px solid var(--color-modals_background);
   background: var(--color-modal_background);
   color: var(--color-modal_color);
-  border-radius: 8px;
+  border-radius: 18px;
   box-sizing: border-box;
   padding: 22px 5px 43px 5px;
   text-align: center;
