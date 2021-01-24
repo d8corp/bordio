@@ -1,8 +1,12 @@
 import React, {Component, ReactNode} from 'react'
+
+// local utils
 import classes from 'src/utils/classes'
 
+// css imports
 import './Link.css'
 
+// interfaces
 export interface LinkProps {
   className?: string
   href?: string
@@ -10,6 +14,7 @@ export interface LinkProps {
   onClick?: () => void
 }
 
+// components
 class Link extends Component <LinkProps> {
   render () {
     const {className, children, ...props} = this.props

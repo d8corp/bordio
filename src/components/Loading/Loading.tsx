@@ -1,7 +1,12 @@
 import React from 'react'
+
+// local utils
 import classes from 'src/utils/classes'
+
+// css imports
 import './Loading.css'
 
+// components
 export function Loading ({className = '', invert = false}) {
   return (
     <svg className={classes('loading', invert && 'loading_invert', className)} viewBox='0 0 50 50'>

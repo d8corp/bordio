@@ -1,6 +1,6 @@
 import React, {Component, ReactNode} from 'react'
 
-// components
+// import components
 import Modals from 'src/components/Modals'
 import Modal from 'src/components/Modal'
 import Button from 'src/components/Button'

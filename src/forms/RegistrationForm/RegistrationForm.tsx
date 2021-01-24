@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
+
+// import components
 import Form from 'src/components/Form'
 
 // api
 import registration, {RegistrationApi} from 'src/api/registration'
 
-// file imports
+// data imports
 import registrationFormFields from './registrationFormFields'
 
 // interfaces
@@ -14,7 +16,7 @@ export interface RegistrationFormProps {
   onError?: (message: string) => any
 }
 
-// classes
+// components
 class RegistrationForm extends Component<RegistrationFormProps> {
   state = {
     fields: registrationFormFields,

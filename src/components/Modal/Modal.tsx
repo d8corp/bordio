@@ -1,12 +1,15 @@
 import React, {Component, ReactNode} from 'react'
 
+// css imports
 import './Modal.css'
 
+// interfaces
 export interface ModalsProps {
   children?: ReactNode
   title?: ReactNode
 }
 
+// components
 export class Modal extends Component<ModalsProps> {
   render () {
     const {title, children} = this.props

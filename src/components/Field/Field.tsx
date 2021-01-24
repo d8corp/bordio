@@ -9,7 +9,7 @@ import React, {
 import {IValidatorOptions} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
 
-// file imports
+// data imports
 import selectorArrow from './selectorArrow.svg'
 import checkboxArrow from './checkboxArrow.svg'
 
@@ -36,7 +36,7 @@ export interface FieldProps <T extends TFieldType, R> extends IValidatorOptions<
   onChange?: (value: TFieldValue<T>, name: string) => void
 }
 
-// classes
+// components
 export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T, R>> {
   static defaultProps = {
     type: 'text',
@@ -87,11 +87,6 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
         {error}
       </span>
     ) : null
-  }
-
-  get className () {
-    const {stretch} = this.props
-    return classes('field', stretch && 'field_stretch')
   }
 
   // elements by type
@@ -198,6 +193,12 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
         {this.error}
       </label>
     )
+  }
+
+  // data
+  get className () {
+    const {stretch} = this.props
+    return classes('field', stretch && 'field_stretch')
   }
 
   render () {

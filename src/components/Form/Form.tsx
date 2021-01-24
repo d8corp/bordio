@@ -28,7 +28,7 @@ export interface FormState {
   disabled: boolean,
 }
 
-// classes
+// components
 class Form <T extends TFieldType, R> extends Component<FormProps<T, R>, FormState> {
   constructor (props: FormProps<T, R>, context: any) {
     super(props, context)
@@ -101,9 +101,8 @@ class Form <T extends TFieldType, R> extends Component<FormProps<T, R>, FormStat
     this.setState({disabled, values: newValues, errors: newErrors})
   }
 
-
   // methods
-  clear () {
+  clear (): void {
     const {fields} = this.props
     const values = []
 
@@ -113,7 +112,7 @@ class Form <T extends TFieldType, R> extends Component<FormProps<T, R>, FormStat
 
     this.setState({disabled: this.isDisabled(values), errors: [], values})
   }
-  validation () {
+  validation (): void {
     const {fields} = this.props
     const {values} = this.state
     const errors = []
@@ -124,6 +123,8 @@ class Form <T extends TFieldType, R> extends Component<FormProps<T, R>, FormStat
 
     this.setState({errors})
   }
+
+  // data
   isDisabled (values: any[]): boolean {
     const {fields} = this.props
 

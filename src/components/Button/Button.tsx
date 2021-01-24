@@ -23,7 +23,7 @@ export interface ButtonProps {
   autoFocus?: boolean
 }
 
-// classes
+// components
 export class Button extends PureComponent<ButtonProps> {
   // events
   onClick = () => {

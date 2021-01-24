@@ -1,8 +1,11 @@
-// interfaces
 /**
- * @param V - type of fieldValidator value
- * @param R - required option type
+ * fieldValidator generic types
+ *
+ * V - type of value
+ * R - required option type
  * */
+
+// interfaces
 export interface IValidatorOptions <V, R> {
   name: string
   values?: any[]
@@ -13,6 +16,7 @@ export interface IValidatorOptions <V, R> {
   valuesError?: string
 }
 
+// functions
 export function fieldValidator <V, R> (value: V, {
   name,
   values,
