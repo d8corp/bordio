@@ -18,10 +18,30 @@ import './Field.css'
 
 // types
 export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLSelectElement>
+
+/**
+ * @description TFieldValuesTypes - this type supports values option
+ * */
 export type TFieldValuesTypes = 'select' | 'radiobox'
+
+/**
+ * @description TFieldStrTypes - this type supports string value
+ * */
 export type TFieldStrTypes = 'select' | 'text' | 'password' | 'email' | 'radiobox'
+
+/**
+ * @description TFieldBoolTypes - this type supports boolean value
+ * */
 export type TFieldBoolTypes = 'checkbox'
+
+/**
+ * @description TFieldType - all types of field
+ * */
 export type TFieldType = TFieldStrTypes | TFieldBoolTypes
+
+/**
+ * @description TFieldValue - returns value type by field type
+ * */
 export type TFieldValue <T> = T extends TFieldStrTypes ? string : boolean
 
 // interfaces
