@@ -20,17 +20,17 @@ import './Field.css'
 export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLSelectElement>
 
 /**
- * @description TFieldValuesTypes - this type supports values option
+ * @description TFieldValuesTypes - a field with this types supports values prop
  * */
 export type TFieldValuesTypes = 'select' | 'radiobox'
 
 /**
- * @description TFieldStrTypes - this type supports string value
+ * @description TFieldStrTypes - a field with this types supports string value
  * */
 export type TFieldStrTypes = 'select' | 'text' | 'password' | 'email' | 'radiobox'
 
 /**
- * @description TFieldBoolTypes - this type supports boolean value
+ * @description TFieldBoolTypes - a field with this types supports boolean value
  * */
 export type TFieldBoolTypes = 'checkbox'
 
@@ -40,7 +40,7 @@ export type TFieldBoolTypes = 'checkbox'
 export type TFieldType = TFieldStrTypes | TFieldBoolTypes
 
 /**
- * @description TFieldValue - returns value type by field type
+ * @description TFieldValue - returns value type by field type prop
  * */
 export type TFieldValue <T> = T extends TFieldStrTypes ? string : boolean
 
