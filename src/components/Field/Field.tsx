@@ -6,7 +6,7 @@ import React, {
   ChangeEvent, KeyboardEvent
 } from 'react'
 // local utils
-import {IValidatorField} from 'src/utils/fieldValidator'
+import {IValidatorOptions} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
 
 // file imports
@@ -23,7 +23,7 @@ export type TFieldStringName = 'select' | 'text' | 'password' | 'email' | 'radio
 export type TFieldBooleanName = 'checkbox'
 
 // interfaces
-export interface IFieldPros extends IValidatorField {
+export interface IFieldPros extends IValidatorOptions {
   type?: string
   error?: string
   override?: (value: string) => ReactNode

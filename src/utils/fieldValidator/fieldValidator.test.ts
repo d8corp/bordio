@@ -2,99 +2,88 @@ import fieldValidator from '.'
 
 describe('fieldValidator', () => {
   test('simple', () => {
-    expect(fieldValidator({
+    expect(fieldValidator(undefined, {
       name: 'name',
     })).toBe('')
 
-    expect(fieldValidator({
+    expect(fieldValidator('test', {
       name: 'name',
-      value: 'test',
     })).toBe('')
   })
 
   test('required', () => {
-    expect(fieldValidator({
+    expect(fieldValidator(undefined, {
       name: 'name',
       required: true
     })).toBe('You must enter the name')
 
-    expect(fieldValidator({
+    expect(fieldValidator('test', {
       name: 'name',
-      value: 'test',
       required: true
     })).toBe('')
   })
 
   test('requiredError', () => {
-    expect(fieldValidator({
+    expect(fieldValidator(undefined, {
       name: 'name',
       required: true,
       requiredError: 'Test',
     })).toBe('Test')
 
-    expect(fieldValidator({
+    expect(fieldValidator('test', {
       name: 'name',
       required: true,
-      value: 'test',
       requiredError: 'Test',
     })).toBe('')
   })
 
   test('pattern', () => {
-    expect(fieldValidator({
+    expect(fieldValidator('test', {
       name: 'name',
       pattern: '^[0-9]+$',
-      value: 'test',
     })).toBe('Please enter a valid name')
 
-    expect(fieldValidator({
+    expect(fieldValidator('123', {
       name: 'name',
       pattern: '^[0-9]+$',
-      value: '123',
     })).toBe('')
   })
 
   test('patternError', () => {
-    expect(fieldValidator({
+    expect(fieldValidator('test', {
       name: 'name',
       pattern: '^[0-9]+$',
-      value: 'test',
       patternError: 'Test',
     })).toBe('Test')
 
-    expect(fieldValidator({
+    expect(fieldValidator('123', {
       name: 'name',
       pattern: '^[0-9]+$',
-      value: '123',
       patternError: 'Test',
     })).toBe('')
   })
 
   test('values', () => {
-    expect(fieldValidator({
+    expect(fieldValidator('test', {
       name: 'name',
-      value: 'test',
       values: ['test1', 'test2'],
     })).toBe('You must select from test1, test2')
 
-    expect(fieldValidator({
+    expect(fieldValidator('test1', {
       name: 'name',
-      value: 'test1',
       values: ['test1', 'test2'],
     })).toBe('')
   })
 
   test('boolean', () => {
-    expect(fieldValidator({
+    expect(fieldValidator(false, {
       name: 'policies',
-      value: false,
       required: true,
       requiredError: 'You must accept the policies',
     })).toBe('You must accept the policies')
 
-    expect(fieldValidator({
+    expect(fieldValidator(true, {
       name: 'policies',
-      value: true,
       required: true,
       requiredError: 'You must accept the policies',
     })).toBe('')

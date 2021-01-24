@@ -1,6 +1,5 @@
-export interface IValidatorField {
+export interface IValidatorOptions {
   name: string
-  value?: string | boolean
   values?: string[]
   required?: boolean
   pattern?: string
@@ -17,7 +16,7 @@ export default function (value: any, {
   patternError = `Please enter a valid ${name}`,
   requiredError = `You must ${values ? 'select' : 'enter'} the ${name}`,
   valuesError = `You must select from ${values?.join(', ')}`,
-}: IValidatorField): string {
+}: IValidatorOptions): string {
   if (!value) {
     return required ? requiredError : ''
   }
