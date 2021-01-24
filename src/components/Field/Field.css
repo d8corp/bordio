@@ -147,8 +147,11 @@
 .field__radiobox {
   margin: 29px 10px 15px;
   position: relative;
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
+}
+.field__radiobox_stretch {
+  display: flex;
 }
 .field__radiobox-label {
   cursor: pointer;
@@ -197,6 +200,9 @@
 .field__checkbox {
   margin: 15px 10px 28px;
   position: relative;
+  display: inline-flex;
+}
+.field__checkbox_stretch {
   display: flex;
 }
 .field__checkbox-label {

@@ -91,18 +91,23 @@ storiesOf('components/Form', module)
       </Modals>
     )
   })
-  .add('action catch', () => {
+  .add('poll', () => {
     return (
       <Modals>
-        <Modal title='Login'>
+        <Modal title='Do you like it?'>
           <Form
-            actionName='Sign In'
+            actionName='Subscribe'
             fields={[
-              {name: 'age'}
+              {
+                name: 'answer',
+                autoFocus: true,
+                stretch: false,
+                type: 'radiobox',
+                values: ['No, really bad', 'Yes, looks good'],
+                required: true
+              }
             ]}
-            action={async () => {
-              throw Error('API does not work')
-            }}
+            action={formAction}
           />
         </Modal>
       </Modals>

@@ -7,7 +7,6 @@ import React, {
 } from 'react'
 
 // local utils
-import {IValidatorOptions} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
 
 // data imports
@@ -19,14 +18,17 @@ import './Field.css'
 
 // types
 export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLSelectElement>
+export type TFieldValuesTypes = 'select' | 'radiobox'
 export type TFieldStrTypes = 'select' | 'text' | 'password' | 'email' | 'radiobox'
 export type TFieldBoolTypes = 'checkbox'
 export type TFieldType = TFieldStrTypes | TFieldBoolTypes
 export type TFieldValue <T> = T extends TFieldStrTypes ? string : boolean
 
 // interfaces
-export interface FieldProps <T extends TFieldType, R> extends IValidatorOptions<TFieldValue<T>, R>{
+export interface FieldProps <T extends TFieldType> {
+  name: string
   value?: TFieldValue<T>
+  values?: T extends TFieldValuesTypes ? string[] : never
   type?: T
   error?: string
   override?: (value: TFieldValue<T>) => ReactNode
@@ -38,7 +40,7 @@ export interface FieldProps <T extends TFieldType, R> extends IValidatorOptions<
 }
 
 // components
-export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T, R>> {
+export class Field <T extends TFieldType> extends PureComponent <FieldProps<T>> {
   static defaultProps = {
     type: 'text',
   }
@@ -63,10 +65,10 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
     if (isDown || isUp) {
       event.preventDefault()
 
-      const {value, values} = this.props
+      const {value, values} = this.props as FieldProps<'select'>
 
       if (values) {
-        const id = values.indexOf(value)
+        const id = values.indexOf(value as any)
         const max = values.length - 1
         const newId = isDown ? (
           id >= max ? 0 : id + 1
@@ -94,7 +96,7 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
 
   // elements by type
   get select (): ReactNode {
-    const {name, placeholder, values, override, value, autoFocus} = this.props as FieldProps<'select', R>
+    const {name, placeholder, values, override, value, autoFocus} = this.props as FieldProps<'select'>
     const ul = createRef<HTMLUListElement>()
 
     return (
@@ -132,10 +134,10 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
     )
   }
   get radiobox (): ReactNode {
-    const {values, value, override, autoFocus} = this.props
+    const {values, value, override, autoFocus, stretch} = this.props as FieldProps<'radiobox'>
 
     return (
-      <div className='field__radiobox'>
+      <div className={classes('field__radiobox', stretch && 'field__radiobox_stretch')}>
         {values?.map(val => (
           <label className='field__radiobox-label' key={val}>
             <input
@@ -156,10 +158,10 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
     )
   }
   get checkbox (): ReactNode {
-    const {value = false, placeholder, autoFocus} = this.props as FieldProps<'checkbox', R>
+    const {value = false, placeholder, autoFocus, stretch} = this.props as FieldProps<'checkbox'>
 
     return (
-      <div className='field__checkbox'>
+      <div className={classes('field__checkbox', stretch && 'field__checkbox_stretch')}>
         <label className='field__checkbox-label'>
           <input
             autoFocus={autoFocus}
@@ -178,7 +180,7 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
     )
   }
   get other (): ReactNode {
-    const {autoFocus, placeholder, name, type, before, value = ''} = this.props as FieldProps<TFieldStrTypes, R>
+    const {autoFocus, placeholder, name, type, before, value = ''} = this.props as FieldProps<TFieldStrTypes>
 
     return (
       <label className={this.className}>

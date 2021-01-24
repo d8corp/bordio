@@ -1,7 +1,7 @@
 import React, {Component, ReactEventHandler, ReactNode} from 'react'
 
 // local utils
-import fieldValidator from 'src/utils/fieldValidator'
+import fieldValidator, {IValidatorOptions} from 'src/utils/fieldValidator'
 
 // components
 import Field, {FieldProps, TFieldType, TFieldValue} from 'src/components/Field'
@@ -10,8 +10,12 @@ import Button from 'src/components/Button'
 // style imports
 import './Form.css'
 
+// types
+export type TFormFieldExclusion = 'value' | 'error' | 'onChange'
+export type FormField <T extends TFieldType, R> = IFormField<T, R> & Omit<FieldProps<T>, TFormFieldExclusion>
+
 // interfaces
-export interface FormField <T extends TFieldType, R> extends FieldProps <T, R>{
+export interface IFormField<T, R> extends IValidatorOptions<TFieldValue<T>, R> {
   defaultValue?: TFieldValue<T>
 }
 export interface FormProps <T extends TFieldType, R> {
