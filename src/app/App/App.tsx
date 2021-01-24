@@ -44,7 +44,7 @@ export class App extends Component <AppProps, AppState> {
   }
 
   // elements
-  get message (): ReactNode | null {
+  get message (): ReactNode {
     const {title, message} = this.state
 
     return message ? (
