@@ -18,22 +18,13 @@ export interface RegistrationFormProps {
 
 // components
 class RegistrationForm extends Component<RegistrationFormProps> {
-  state = {
-    fields: registrationFormFields,
-  }
-
-  onChange = (fields: typeof registrationFormFields) => {
-    this.setState({fields})
-  }
-
   render () {
-    const {fields} = this.state
     const {onError, onSuccess} = this.props
 
     return (
       <Form
         actionName='Sign up'
-        fields={fields}
+        fields={registrationFormFields}
         action={data => registration(data as RegistrationApi).then(result => {
           if (onSuccess) {
             onSuccess(result.data.signup.id)

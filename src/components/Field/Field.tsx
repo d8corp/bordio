@@ -5,6 +5,7 @@ import React, {
   RefObject,
   ChangeEvent, KeyboardEvent
 } from 'react'
+
 // local utils
 import {IValidatorOptions} from 'src/utils/fieldValidator'
 import classes from 'src/utils/classes'
@@ -42,9 +43,18 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
     type: 'text',
   }
 
-  // methods
-  onChange (event: TFieldOnChangeEvent) {
+  // events
+  onChange = (event: TFieldOnChangeEvent) => {
     this.setValue(event.target.value)
+  }
+
+  // methods
+  setValue (newValue?: any) {
+    const {onChange, name, value} = this.props
+
+    if (onChange && newValue !== value) {
+      onChange(newValue, name)
+    }
   }
   onSelectKeyDown (event: KeyboardEvent<HTMLSelectElement>, ul: RefObject<HTMLUListElement>) {
     const isUp = event.key === 'ArrowUp'
@@ -56,7 +66,7 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
       const {value, values} = this.props
 
       if (values) {
-        const id = values.indexOf(value as string)
+        const id = values.indexOf(value)
         const max = values.length - 1
         const newId = isDown ? (
           id >= max ? 0 : id + 1
@@ -68,13 +78,6 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
 
         ul.current?.children[newId].scrollIntoView({behavior: 'smooth', block: "center"})
       }
-    }
-  }
-  setValue (newValue?: any) {
-    const {onChange, name, value} = this.props
-
-    if (onChange && newValue !== value) {
-      onChange(newValue, name)
     }
   }
 
@@ -101,7 +104,7 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
           onKeyDown={e => this.onSelectKeyDown(e, ul)}
           value={value}
           className='field__input field__input_select'
-          onChange={e => this.onChange(e)}
+          onChange={this.onChange}
           name={name}>
           <option disabled>{placeholder}</option>
           {values?.map(val => (
@@ -182,7 +185,7 @@ export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T
         {before}
         <input
           autoFocus={autoFocus}
-          onChange={e => this.onChange(e)}
+          onChange={this.onChange}
           value={value}
           placeholder={placeholder}
           name={name}
