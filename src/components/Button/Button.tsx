@@ -25,6 +25,16 @@ export interface ButtonProps {
 
 // classes
 export class Button extends PureComponent<ButtonProps> {
+  // events
+  onClick = () => {
+    const {onClick} = this.props
+
+    if (onClick) {
+      onClick()
+    }
+  }
+
+  // data
   get className () {
     const {stretch, disabled, className, invert, loading} = this.props
 
@@ -36,14 +46,6 @@ export class Button extends PureComponent<ButtonProps> {
       disabled && 'button_disabled',
       invert && 'button_invert',
     )
-  }
-
-  onClick = () => {
-    const {onClick} = this.props
-
-    if (onClick) {
-      onClick()
-    }
   }
 
   render () {
