@@ -37,9 +37,7 @@ export class App extends Component <AppProps, AppState> {
       message,
     })
   }
-
-  // methods
-  clear (): void {
+  onClear = (): void => {
     this.setState({title: '', message: ''})
   }
 
@@ -55,7 +53,7 @@ export class App extends Component <AppProps, AppState> {
         <Button
           autoFocus
           stretch
-          onClick={() => this.clear()}>
+          onClick={this.onClear}>
           Ok
         </Button>
       </Modal>

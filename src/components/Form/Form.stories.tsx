@@ -96,7 +96,6 @@ storiesOf('components/Form', module)
       <Modals>
         <Modal title='Do you like it?'>
           <Form
-            actionName='Subscribe'
             fields={[
               {
                 name: 'answer',

@@ -21,7 +21,7 @@
   max-height: -webkit-fill-available;
   overflow-y: auto;
   overflow-x: hidden;
-  border: 10px solid var(--color-modals_background);
+  border: 10px solid transparent;
   background: var(--color-modal_background);
   color: var(--color-modal_color);
   border-radius: 18px;
@@ -30,10 +30,12 @@
   text-align: center;
   transition: opacity 0.3s;
   transform: translateX(-50%) translateY(-50%) scale(1);
+  background-clip: padding-box;
 }
 
 .modal + .modal {
   opacity: 0;
+  pointer-events: none;
 }
 
 .modal__title {
