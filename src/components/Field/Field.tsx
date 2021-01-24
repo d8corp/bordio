@@ -18,34 +18,26 @@ import './Field.css'
 
 // types
 export type TFieldOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLSelectElement>
-export type FieldProps = IFieldStringProps | IFieldBooleanProps
-export type TFieldStringName = 'select' | 'text' | 'password' | 'email' | 'radiobox' | string
-export type TFieldBooleanName = 'checkbox'
+export type TFieldStrTypes = 'select' | 'text' | 'password' | 'email' | 'radiobox'
+export type TFieldBoolTypes = 'checkbox'
+export type TFieldType = TFieldStrTypes | TFieldBoolTypes
+export type TFieldValue <T> = T extends TFieldStrTypes ? string : boolean
 
 // interfaces
-export interface IFieldPros extends IValidatorOptions {
-  type?: string
+export interface FieldProps <T extends TFieldType, R> extends IValidatorOptions<TFieldValue<T>, R>{
+  value?: TFieldValue<T>
+  type?: T
   error?: string
-  override?: (value: string) => ReactNode
+  override?: (value: TFieldValue<T>) => ReactNode
   before?: ReactNode
   stretch?: boolean
   autoFocus?: boolean
-}
-export interface IFieldStringProps extends IFieldPros {
-  type?: TFieldStringName
-  value?: string
-  placeholder?: string
-  onChange?: (value: string, name: string) => void
-}
-export interface IFieldBooleanProps extends IFieldPros {
-  type?: TFieldBooleanName
-  value?: boolean
-  placeholder?: ReactNode
-  onChange?: (value: boolean, name: string) => void
+  placeholder?: T extends TFieldStrTypes ? string : ReactNode
+  onChange?: (value: TFieldValue<T>, name: string) => void
 }
 
 // classes
-export class Field extends PureComponent <FieldProps> {
+export class Field <T extends TFieldType, R> extends PureComponent <FieldProps<T, R>> {
   static defaultProps = {
     type: 'text',
   }
@@ -78,11 +70,11 @@ export class Field extends PureComponent <FieldProps> {
       }
     }
   }
-  setValue (newValue?: string | boolean) {
-    const {onChange, name, value} = this.props as IFieldStringProps
+  setValue (newValue?: any) {
+    const {onChange, name, value} = this.props
 
     if (onChange && newValue !== value) {
-      onChange(newValue as string, name)
+      onChange(newValue, name)
     }
   }
 
@@ -98,13 +90,13 @@ export class Field extends PureComponent <FieldProps> {
   }
 
   get className () {
-    const {stretch} = this.props as IFieldStringProps
+    const {stretch} = this.props
     return classes('field', stretch && 'field_stretch')
   }
 
   // elements by type
   get select (): ReactNode {
-    const {name, placeholder, values, override, value, autoFocus} = this.props as IFieldStringProps
+    const {name, placeholder, values, override, value, autoFocus} = this.props as FieldProps<'select', R>
     const ul = createRef<HTMLUListElement>()
 
     return (
@@ -142,7 +134,7 @@ export class Field extends PureComponent <FieldProps> {
     )
   }
   get radiobox (): ReactNode {
-    const {values, value, override, autoFocus} = this.props as IFieldStringProps
+    const {values, value, override, autoFocus} = this.props
 
     return (
       <div className='field__radiobox'>
@@ -166,7 +158,7 @@ export class Field extends PureComponent <FieldProps> {
     )
   }
   get checkbox (): ReactNode {
-    const {value = false, placeholder, autoFocus} = this.props as IFieldBooleanProps
+    const {value = false, placeholder, autoFocus} = this.props as FieldProps<'checkbox', R>
 
     return (
       <div className='field__checkbox'>
@@ -188,7 +180,7 @@ export class Field extends PureComponent <FieldProps> {
     )
   }
   get other (): ReactNode {
-    const {autoFocus, placeholder, name, type, before, value = ''} = this.props as IFieldStringProps
+    const {autoFocus, placeholder, name, type, before, value = ''} = this.props as FieldProps<TFieldStrTypes, R>
 
     return (
       <label className={this.className}>

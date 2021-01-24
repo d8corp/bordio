@@ -1,13 +1,12 @@
 import React from 'react'
 import Link from 'src/components/Link'
-import {FormField} from 'src/components/Form'
 
 import passwordImage from 'src/icons/password.svg'
 import emailImage from 'src/icons/email.svg'
 
 import './RegistrationFormFields.css'
 
-export const fields: FormField[] = [
+export const fields: any = [
   {
     name: 'name',
     type: 'text',

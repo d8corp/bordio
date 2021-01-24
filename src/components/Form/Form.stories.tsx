@@ -30,7 +30,7 @@ const signInFields = [
     pattern: '.{6,}',
     patternError: 'Password must contain at least 6 symbols',
   }
-]
+] as any
 
 const formAction = async (data: any) => action('action')(data)
 

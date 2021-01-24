@@ -4,18 +4,18 @@ import React, {Component, ReactEventHandler, ReactNode} from 'react'
 import fieldValidator from 'src/utils/fieldValidator'
 
 // components
-import Field, {IFieldStringProps, IFieldBooleanProps} from 'src/components/Field'
+import Field, {FieldProps, TFieldType, TFieldValue} from 'src/components/Field'
 import Button from 'src/components/Button'
 
 // style imports
 import './Form.css'
 
-// types
-export type FormField = (IFieldStringProps & FormFieldMixer<string>) | (IFieldBooleanProps & FormFieldMixer<boolean>)
-
 // interfaces
-export interface FormProps {
-  fields: FormField[]
+export interface FormField <T extends TFieldType, R> extends FieldProps <T, R>{
+  defaultValue?: TFieldValue<T>
+}
+export interface FormProps <T extends TFieldType, R> {
+  fields: FormField<T, R>[]
   children?: never
   action?: (data: Record<string, any>) => Promise<any>
   actionName?: ReactNode
@@ -27,13 +27,10 @@ export interface FormState {
   errors: any[],
   disabled: boolean,
 }
-export interface FormFieldMixer <T> {
-  defaultValue?: T
-}
 
 // classes
-class Form extends Component<FormProps, FormState> {
-  constructor (props: any, context: any) {
+class Form <T extends TFieldType, R> extends Component<FormProps<T, R>, FormState> {
+  constructor (props: FormProps<T, R>, context: any) {
     super(props, context)
 
     const values = this.props.fields.map(field => field.defaultValue)
@@ -149,7 +146,7 @@ class Form extends Component<FormProps, FormState> {
             stretch
             autoFocus={autoFocus && !id}
             {...field}
-            value={values[id] as any}
+            value={values[id]}
             error={errors[id]}
             key={field.name}
             onChange={this.onChange}
